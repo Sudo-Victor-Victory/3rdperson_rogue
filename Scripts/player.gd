@@ -2,8 +2,9 @@ extends CharacterBody3D
 
 @onready var animation_player = $"Character Visuals/mixamo_base/AnimationPlayer"
 @onready var camera_mount = $"Camera Mount"
+@onready var character_visuals = $"Character Visuals"
 
-const SPEED = 5.0
+const SPEED = 3.5
 const JUMP_VELOCITY = 4.5
 
 
@@ -19,7 +20,11 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * horizontal_sensitivity))
+		### MAY REMOVE LATER ###
+		# The line below makes it so the character doesn't rotate upon moving the mouse.
+		character_visuals.rotate_y(deg_to_rad(event.relative.x * horizontal_sensitivity))
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y * vertical_sensitivity))
+		
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -36,6 +41,8 @@ func _physics_process(delta):
 	if direction:
 		if animation_player.current_animation != "walking":
 			animation_player.play("walking")
+		# Makes our character rotate / point to their arrival location
+		character_visuals.look_at(position+direction)
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
