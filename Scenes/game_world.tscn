@@ -1,6 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bjtixn0gfto0w"]
+[gd_scene load_steps=21 format=3 uid="uid://bjtixn0gfto0w"]
 
-[ext_resource type="Texture2D" uid="uid://dgfc87vfilfo8" path="res://Assets/textures/grids/Purple/texture_03.png" id="1_smros"]
+[ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://Assets/textures/grids/Green/texture_01.png" id="2_4tat1"]
+[ext_resource type="Texture2D" uid="uid://6o3hwigx2swq" path="res://Assets/textures/grids/Orange/texture_06.png" id="3_c1prp"]
+[ext_resource type="Texture2D" uid="uid://svp317oq35y5" path="res://Assets/textures/grids/Red/texture_03.png" id="3_dfgtt"]
 [ext_resource type="PackedScene" uid="uid://cqnl34fkw0fno" path="res://Scenes/player.tscn" id="5_swp4n"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_76kw0"]
@@ -23,15 +25,39 @@ resource_local_to_scene = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_bpyi5"]
 size = Vector3(100, 1, 100)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ieoob"]
-albedo_texture = ExtResource("1_smros")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oiqun"]
+albedo_texture = ExtResource("2_4tat1")
 
 [sub_resource type="BoxMesh" id="BoxMesh_nsuhc"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_u3mhs"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ynb6o"]
 resource_local_to_scene = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_xrtet"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ykrtm"]
+albedo_texture = ExtResource("2_4tat1")
+roughness = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_nyjho"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_egeev"]
+resource_local_to_scene = true
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07oee"]
+albedo_texture = ExtResource("3_dfgtt")
+
+[sub_resource type="BoxMesh" id="BoxMesh_0teml"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l2hyu"]
+resource_local_to_scene = true
+size = Vector3(3, 3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0gjec"]
+albedo_texture = ExtResource("3_c1prp")
+
+[sub_resource type="BoxMesh" id="BoxMesh_68v63"]
+size = Vector3(3, 3, 3)
 
 [node name="GameWorld" type="Node3D"]
 
@@ -52,19 +78,44 @@ shape = SubResource("BoxShape3D_bpyi5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
 transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_ieoob")
+material_override = SubResource("StandardMaterial3D_oiqun")
 mesh = SubResource("BoxMesh_nsuhc")
-
-[node name="Box 4" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3823, 1.37906, 0)
-
-[node name="RigidBody3D" type="RigidBody3D" parent="Box 4"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Box 4/RigidBody3D"]
-shape = SubResource("BoxShape3D_u3mhs")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Box 4"]
-mesh = SubResource("BoxMesh_xrtet")
 
 [node name="Player" parent="." instance=ExtResource("5_swp4n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0517, 0)
+
+[node name="Box 1" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box 1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_ynb6o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box 1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_ykrtm")
+mesh = SubResource("BoxMesh_nyjho")
+
+[node name="Box 2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3.57692, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_egeev")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_07oee")
+mesh = SubResource("BoxMesh_0teml")
+
+[node name="Box 3" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.81649, 3.63885, -6.52704)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box 3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.526)
+shape = SubResource("BoxShape3D_l2hyu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box 3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.525858)
+material_override = SubResource("StandardMaterial3D_0gjec")
+mesh = SubResource("BoxMesh_68v63")
