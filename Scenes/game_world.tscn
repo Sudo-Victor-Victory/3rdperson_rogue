@@ -1,9 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://bjtixn0gfto0w"]
+[gd_scene load_steps=12 format=3 uid="uid://bjtixn0gfto0w"]
 
 [ext_resource type="Texture2D" uid="uid://dgfc87vfilfo8" path="res://Assets/textures/grids/Purple/texture_03.png" id="1_smros"]
-[ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://Assets/textures/grids/Green/texture_01.png" id="2_4tat1"]
-[ext_resource type="Texture2D" uid="uid://svp317oq35y5" path="res://Assets/textures/grids/Red/texture_03.png" id="3_dfgtt"]
-[ext_resource type="Texture2D" uid="uid://d2m8qf54p78pp" path="res://Assets/textures/grids/Orange/texture_03.png" id="4_8nthl"]
+[ext_resource type="PackedScene" uid="uid://cqnl34fkw0fno" path="res://Scenes/player.tscn" id="5_swp4n"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_76kw0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -19,29 +17,21 @@ tonemap_mode = 2
 sdfgi_enabled = true
 fog_enabled = true
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x4ori"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2ddm8"]
 resource_local_to_scene = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bpyi5"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ieoob"]
+albedo_texture = ExtResource("1_smros")
+
+[sub_resource type="BoxMesh" id="BoxMesh_nsuhc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u3mhs"]
 resource_local_to_scene = true
-size = Vector3(100, 1, 100)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2gie7"]
-albedo_texture = ExtResource("1_smros")
-
-[sub_resource type="BoxMesh" id="BoxMesh_kix0q"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lf1ro"]
-albedo_texture = ExtResource("2_4tat1")
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gd38y"]
-albedo_texture = ExtResource("3_dfgtt")
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d85ed"]
-albedo_texture = ExtResource("4_8nthl")
-uv1_triplanar = true
+[sub_resource type="BoxMesh" id="BoxMesh_xrtet"]
 
 [node name="GameWorld" type="Node3D"]
 
@@ -55,33 +45,26 @@ environment = SubResource("Environment_ljsrq")
 [node name="Platform" type="Node3D" parent="."]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Platform"]
-physics_material_override = SubResource("PhysicsMaterial_x4ori")
+physics_material_override = SubResource("PhysicsMaterial_2ddm8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Platform/StaticBody3D"]
-shape = SubResource("BoxShape3D_u3mhs")
+shape = SubResource("BoxShape3D_bpyi5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
 transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_2gie7")
-mesh = SubResource("BoxMesh_kix0q")
+material_override = SubResource("StandardMaterial3D_ieoob")
+mesh = SubResource("BoxMesh_nsuhc")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.85449, 17.5335)
+[node name="Box 4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3823, 1.37906, 0)
 
-[node name="Box 1" type="CSGBox3D" parent="."]
-transform = Transform3D(0.907777, 0, -0.419452, 0, 1, 0, 0.419452, 0, 0.907777, -19.9881, 6.68723, 0)
-material_override = SubResource("StandardMaterial3D_lf1ro")
-gi_mode = 2
-size = Vector3(5, 5, 5)
+[node name="RigidBody3D" type="RigidBody3D" parent="Box 4"]
 
-[node name="Box 2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.267238, 0.96363, 0, -0.96363, 0.267238, 17.5856, 9.67595, 0)
-material_override = SubResource("StandardMaterial3D_gd38y")
-gi_mode = 2
-size = Vector3(10, 10, 10)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box 4/RigidBody3D"]
+shape = SubResource("BoxShape3D_u3mhs")
 
-[node name="Box 3" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9881, 6.68723, 9.62777)
-material_override = SubResource("StandardMaterial3D_d85ed")
-gi_mode = 2
-size = Vector3(2, 2, 2)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box 4"]
+mesh = SubResource("BoxMesh_xrtet")
+
+[node name="Player" parent="." instance=ExtResource("5_swp4n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0517, 0)
