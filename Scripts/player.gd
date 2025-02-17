@@ -52,8 +52,8 @@ func _physics_process(delta):
 	#######       THIS MAY BE REPLACED WITH A FSM. ###
 	if direction:
 		if is_running:
-			if animation_player.current_animation != "run":
-				animation_player.play("run")
+			if animation_player.current_animation != "running":
+				animation_player.play("running")
 		else:
 			if animation_player.current_animation != "walking":
 				animation_player.play("walking")
