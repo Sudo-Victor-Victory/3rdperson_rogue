@@ -1,8 +1,14 @@
+class_name Player
 extends CharacterBody3D
+
 
 @onready var animation_player = $"Character Visuals/mixamo_base/AnimationPlayer"
 @onready var camera_mount = $"Camera Mount"
 @onready var character_visuals = $"Character Visuals"
+
+@onready var state_machine = $StateMachine
+
+
 
 const JUMP_VELOCITY = 4.5
 
@@ -19,7 +25,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
+	state_machine.init(self)
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -29,12 +35,13 @@ func _input(event):
 		character_visuals.rotate_y(deg_to_rad(event.relative.x * horizontal_sensitivity))
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y * vertical_sensitivity))
 		
-func _physics_process(delta):
+func _physics_process(delta):	
+	
 	if Input.is_action_pressed("run"):
-		SPEED = running_speed
+		#SPEED = running_speed
 		is_running = true
 	else:
-		SPEED = walking_speed
+		#SPEED = walking_speed
 		is_running = false
 		
 	# Add the gravity.
@@ -51,12 +58,12 @@ func _physics_process(delta):
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	#######       THIS MAY BE REPLACED WITH A FSM. ###
 	if direction:
-		if is_running:
-			if animation_player.current_animation != "running":
-				animation_player.play("running")
-		else:
-			if animation_player.current_animation != "walking":
-				animation_player.play("walking")
+		#if is_running:
+		#	if animation_player.current_animation != "running":
+		#		animation_player.play("running")
+		#else:
+		#	if animation_player.current_animation != "walking":
+		#		animation_player.play("walking")
 			
 
 		# Makes our character rotate / point to their arrival location
@@ -64,8 +71,8 @@ func _physics_process(delta):
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
-		if animation_player.current_animation != "idle":
-			animation_player.play("idle")
+		#if animation_player.current_animation != "idle":
+		#	animation_player.play("idle")
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
