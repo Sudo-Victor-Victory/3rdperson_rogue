@@ -13,22 +13,6 @@ func _ready():
 func _process(delta):
 	pass
 
-func _process_physics(delta: float) -> State:
-	print("I am using the walking process")
-	var input_dir = Input.get_vector("left", "right", "forward", "backward")
-	
-	var direction = (parent.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
-	if direction:
-		parent.character_visuals.look_at(parent.position+direction)
-		parent.velocity.x = direction.x * SPEED
-		parent.velocity.z = direction.z * SPEED
-	else:
-		return idle_state
-		
-		
-		
-	return null
 	
 func enter() -> void:
 	super()

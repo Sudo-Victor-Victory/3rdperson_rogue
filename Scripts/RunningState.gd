@@ -14,7 +14,7 @@ func _process(delta):
 
 
 func enter() -> void:
-	super()
+	
 	print("Changed speed to 8")
 	parent.SPEED =  8
 
