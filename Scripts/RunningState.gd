@@ -14,10 +14,12 @@ func _process(delta):
 
 
 func enter() -> void:
+	super()
 	print("Changed speed to 8")
 	parent.SPEED =  8
 
 
 func exit() -> void:
+	print("Changed speed to 3.5")
 	parent.SPEED = 3.5
 	pass

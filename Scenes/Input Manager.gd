@@ -14,9 +14,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	#######       THIS MAY BE REPLACED WITH A FSM. ###
 	
 	if Input.is_action_pressed("run"):
 		is_running = true
