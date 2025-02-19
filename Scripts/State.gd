@@ -1,10 +1,8 @@
 class_name State
 extends Node
 
-@export
-var animation_name: String
-@export
-var SPEED = 3.5
+@export var animation_name: String
+@export var SPEED = 3.5
 
 var gravity =  ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -17,3 +15,6 @@ func enter() -> void:
 
 func exit() -> void:
 	pass
+
+func process_frame(delta: float) -> State:
+	return null

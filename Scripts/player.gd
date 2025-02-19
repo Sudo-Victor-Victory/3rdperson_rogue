@@ -5,7 +5,6 @@ extends CharacterBody3D
 @onready var animation_player = $"Character Visuals/mixamo_base/AnimationPlayer"
 @onready var camera_mount = $"Camera Mount"
 @onready var character_visuals = $"Character Visuals"
-
 @onready var state_machine = $StateMachine
 
 
@@ -34,9 +33,16 @@ func _input(event):
 		# The line below makes it so the character doesn't rotate upon moving the mouse.
 		character_visuals.rotate_y(deg_to_rad(event.relative.x * horizontal_sensitivity))
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y * vertical_sensitivity))
-		
-func _physics_process(delta):	
-	# Add the gravity.
+
+
+
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	state_machine.process_input(event)
+
+func _physics_process(delta: float) -> void:
+		# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
@@ -44,17 +50,14 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("left", "right", "forward", "backward")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	if direction:
-		character_visuals.look_at(position+direction)
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+	
+	
 
 	move_and_slide()
+	state_machine.process_physics(delta)
+
+func _process(delta: float) -> void:
+	state_machine.process_frame(delta)
+
+
