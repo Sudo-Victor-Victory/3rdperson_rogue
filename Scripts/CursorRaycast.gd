@@ -23,7 +23,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("secondary"):
 		if secondary_throw:
 			print("I called throw")
-			throw_the_thing()
+			throw_object()
 		elif is_colliding():
 			# Gets collider of object the raycast is hitting
 			secondary_select = true
@@ -37,11 +37,11 @@ func _process(delta):
 func _physics_process(delta) -> void:
 	if secondary_select:
 		# Gets collider of object the raycast is hitting
-		do_the_thing(throwable)
+		select_object(throwable)
 
 
 			
-func do_the_thing(throwable):
+func select_object(throwable):
 		# Where the player is (and the offset at the top left of the player model)
 		var target_position = player.global_transform.origin + relative_offset
 		
@@ -68,7 +68,7 @@ func do_the_thing(throwable):
 			secondary_throw = true
 			
 			
-func throw_the_thing():
+func throw_object():
 	# Apply physics on collided obj
 	throwable.freeze = false
 	# add it back to the game world
