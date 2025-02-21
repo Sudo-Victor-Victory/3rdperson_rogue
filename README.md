@@ -8,6 +8,11 @@ Here's a small showcase of what is currently available.
 
 https://github.com/user-attachments/assets/a7e7f98e-3cf6-4649-a668-9abcd18d5d78
 
+Here's day 3
+
+https://github.com/user-attachments/assets/d5f120ac-04a3-4e16-85b5-a8c83d47afbd
+
+
 
 ## License
 
