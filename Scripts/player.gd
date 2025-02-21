@@ -7,6 +7,7 @@ extends CharacterBody3D
 @onready var character_visuals = $"Character Visuals"
 @onready var state_machine = $StateMachine
 
+@onready var ray_cast_3d = $"Camera Mount/RayCast3D"
 
 
 const JUMP_VELOCITY = 4.5
@@ -32,10 +33,9 @@ func _input(event):
 		### MAY REMOVE LATER ###
 		# The line below makes it so the character doesn't rotate upon moving the mouse.
 		character_visuals.rotate_y(deg_to_rad(event.relative.x * horizontal_sensitivity))
+		
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y * vertical_sensitivity))
-
-
-
+		
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -49,15 +49,10 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
-
 	
 	
-
 	move_and_slide()
 	state_machine.process_physics(delta)
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
-
-
