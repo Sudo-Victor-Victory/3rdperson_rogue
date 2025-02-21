@@ -2,6 +2,7 @@ extends RayCast3D
 
 @onready var player = $"../.."
 
+@onready var joint = $"../../Joint"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta) -> void:
@@ -19,4 +20,4 @@ func _physics_process(delta) -> void:
 			print("and the diff between the 2???")
 			print(distance)
 			hit.add_constant_force(-distance)
-			print("hi")
+			joint.set_node_b(hit.get_path())
