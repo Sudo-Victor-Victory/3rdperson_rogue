@@ -32,13 +32,20 @@ func _process(delta):
 			secondary_select = true
 			throwable = get_collider()
 
-	if Input.is_action_just_released("primary") &&  hold_counter >= hold_time:
-		print(hold_counter)
+
 	if Input.is_action_pressed("primary"):
 		hold_counter += delta
-	else:
+		
+	if Input.is_action_just_released("primary") :
+		if hold_counter < 0.1:
+			print("I tapped")
+			print(hold_counter)
+		else:
+			print("I held")
+			print(hold_counter)
 		hold_counter = 0.0
 
+		
 
 
 
@@ -82,13 +89,10 @@ func throw_object():
 	throwable.freeze = false
 	# add it back to the game world
 	throwable.reparent(get_tree().root)
-	
-
-	# 
+	# Calculates a normalized global direction from the raycast's current position towards the
+	# Raycast's destination point. It works !!!!!
 	var global_direction = (global_basis * target_position).normalized()
 
-	print("Direction?")
-	print(global_direction)
 	# Applies physics on the object.
 	throwable.apply_impulse(global_direction * move_force * throw_force)
 
