@@ -1,6 +1,7 @@
 extends RayCast3D
 
 @onready var player = $"../.."
+@onready var primary_ball = $"../../PrimaryBall"
 
 # Offset off the base player model
 var relative_offset = Vector3(-2,3, 0)
@@ -11,10 +12,6 @@ var stop_distance = 1.5
 var move_force = 2
 var throw_force = 4
 
-# Has the user pressed RMB to select
-var secondary_select = false
-# Has the user pressed RMB to throw
-var secondary_throw = false
 
 
 
@@ -22,20 +19,50 @@ var throwable = null
 var hold_counter : float = 0.0
 var hold_time : float = 1.0
 
+
+
+var ball = null
+
+
+
+var ball_scale 
+
+
+
+# Has the user pressed RMB to select
+var secondary_pickup = false
+# Has the user pressed RMB to throw
+var secondary_throw = false
+#
+var primary_fire = false
 func _process(delta):
 	if Input.is_action_just_pressed("secondary"):
 		if secondary_throw:
 			print("I called throw")
-			throw_object()
+			throw_object(throwable)
+			secondary_throw = false
 		elif is_colliding():
 			# Gets collider of object the raycast is hitting
-			secondary_select = true
+			secondary_pickup = true
 			throwable = get_collider()
 
 
+
+
 	if Input.is_action_pressed("primary"):
-		hold_counter += delta
+		if !primary_fire:
+			print("I dupe")
+			ball = primary_ball.duplicate()
+			ball.visible = true
+			player.add_child(ball)
+			ball.get_child(0).disabled = false
+			primary_fire = true
 		
+		
+		hold_counter += delta
+		if hold_counter > 0.1:
+			# Makes the ball grow bigger
+			ball.scale +=  Vector3(hold_counter * 0.001 ,  hold_counter * 0.001, hold_counter * 0.001)
 	if Input.is_action_just_released("primary") :
 		if hold_counter < 0.1:
 			print("I tapped")
@@ -43,7 +70,19 @@ func _process(delta):
 		else:
 			print("I held")
 			print(hold_counter)
+		print("Ball size")
+		print(ball.scale)
+		ball_scale = ball.scale
+
+
+		throw_object(ball)
+	
+
+
+		# Maybe parameterize 
+
 		hold_counter = 0.0
+		primary_fire = false
 
 		
 
@@ -51,13 +90,12 @@ func _process(delta):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta) -> void:
-	if secondary_select:
+	if secondary_pickup:
 		# Gets collider of object the raycast is hitting
-		select_object(throwable)
-
-
-			
-func select_object(throwable):
+		secondary_pickup_player(throwable)
+		
+		
+func secondary_pickup_player(throwable):
 		# Where the player is (and the offset at the top left of the player model)
 		var target_position = player.global_transform.origin + relative_offset
 		
@@ -68,7 +106,7 @@ func select_object(throwable):
 		var distance_to_target = throwable.global_transform.origin.distance_to(target_position)
 		
 		
-		if secondary_select && distance_to_target > stop_distance:
+		if secondary_pickup && distance_to_target > stop_distance:
 			# Apply force to move the obj
 			throwable.apply_impulse(direction * move_force)
 		else:
@@ -80,23 +118,22 @@ func select_object(throwable):
 			throwable.reparent(player)
 			# Freeze the object so gravity doesn't drag it to the floor
 			throwable.freeze = true
-			secondary_select = false
+			secondary_pickup = false
 			secondary_throw = true
 			
 			
-func throw_object():
+func throw_object(obj):
 	# Apply physics on collided obj
-	throwable.freeze = false
+	obj.freeze = false
 	# add it back to the game world
-	throwable.reparent(get_tree().root)
+	obj.reparent(get_tree().root)
 	# Calculates a normalized global direction from the raycast's current position towards the
 	# Raycast's destination point. It works !!!!!
 	var global_direction = (global_basis * target_position).normalized()
 
 	# Applies physics on the object.
-	throwable.apply_impulse(global_direction * move_force * throw_force)
+	obj.apply_impulse(global_direction * move_force * throw_force)
 
+	
 
-	throwable = null
-	secondary_throw = false
 	
