@@ -12,29 +12,21 @@ var stop_distance = 1.5
 var move_force = 2
 var throw_force = 4
 
-
-
-
-var throwable = null
 var hold_counter : float = 0.0
 var hold_time : float = 1.0
 
-
-
+# Rigidbody3d references that allow us to call physics functions on
+var throwable = null
 var ball = null
 
 
-
-var ball_scale 
-
-
-
+# Checks if the user has pressed the primary fire button
+var primary_fire = false
 # Has the user pressed RMB to select
 var secondary_pickup = false
 # Has the user pressed RMB to throw
 var secondary_throw = false
-#
-var primary_fire = false
+
 func _process(delta):
 	if Input.is_action_just_pressed("secondary"):
 		if secondary_throw:
@@ -46,46 +38,24 @@ func _process(delta):
 			secondary_pickup = true
 			throwable = get_collider()
 
-
-
-
 	if Input.is_action_pressed("primary"):
 		if !primary_fire:
-			print("I dupe")
 			ball = primary_ball.duplicate()
 			ball.visible = true
 			player.add_child(ball)
 			ball.get_child(0).disabled = false
 			primary_fire = true
 		
-		
 		hold_counter += delta
 		if hold_counter > 0.1:
-			# Makes the ball grow bigger
-			ball.scale +=  Vector3(hold_counter * 0.001 ,  hold_counter * 0.001, hold_counter * 0.001)
-	if Input.is_action_just_released("primary") :
-		if hold_counter < 0.1:
-			print("I tapped")
-			print(hold_counter)
-		else:
-			print("I held")
-			print(hold_counter)
-		print("Ball size")
-		print(ball.scale)
-		ball_scale = ball.scale
-
-
-		throw_object(ball)
+			# Rigidbody3d does not like its scale being modified. Workaround is mod. its children.
+			ball.get_node("CollisionShape3D").scale += Vector3(hold_counter * 0.001 ,  hold_counter * 0.001, hold_counter * 0.001)
+			ball.get_node("MeshInstance3D").scale += Vector3(hold_counter * 0.001 ,  hold_counter * 0.001, hold_counter * 0.001)
 	
-
-
-		# Maybe parameterize 
-
+	if Input.is_action_just_released("primary") :
+		throw_object(ball)
 		hold_counter = 0.0
 		primary_fire = false
-
-		
-
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -105,7 +75,6 @@ func secondary_pickup_player(throwable):
 		# Calculate the distance from the collided obj to the player
 		var distance_to_target = throwable.global_transform.origin.distance_to(target_position)
 		
-		
 		if secondary_pickup && distance_to_target > stop_distance:
 			# Apply force to move the obj
 			throwable.apply_impulse(direction * move_force)
@@ -121,7 +90,6 @@ func secondary_pickup_player(throwable):
 			secondary_pickup = false
 			secondary_throw = true
 			
-			
 func throw_object(obj):
 	# Apply physics on collided obj
 	obj.freeze = false
@@ -133,7 +101,3 @@ func throw_object(obj):
 
 	# Applies physics on the object.
 	obj.apply_impulse(global_direction * move_force * throw_force)
-
-	
-
-	
