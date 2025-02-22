@@ -9,7 +9,7 @@ var relative_offset = Vector3(-2,3, 0)
 var stop_distance = 1.5
 
 var move_force = 2
-var throw_force = 2
+var throw_force = 4
 
 # Has the user pressed RMB to select
 var secondary_select = false
@@ -19,6 +19,9 @@ var secondary_throw = false
 
 
 var throwable = null
+var hold_counter : float = 0.0
+var hold_time : float = 1.0
+
 func _process(delta):
 	if Input.is_action_just_pressed("secondary"):
 		if secondary_throw:
@@ -29,6 +32,12 @@ func _process(delta):
 			secondary_select = true
 			throwable = get_collider()
 
+	if Input.is_action_just_released("primary") &&  hold_counter >= hold_time:
+		print(hold_counter)
+	if Input.is_action_pressed("primary"):
+		hold_counter += delta
+	else:
+		hold_counter = 0.0
 
 
 
@@ -74,13 +83,14 @@ func throw_object():
 	# add it back to the game world
 	throwable.reparent(get_tree().root)
 	
-	# Calculates raycast position locally, gets unit vector for direction, then
-	# changes the unit vector to a global-unit vector
-	var direction = self.to_global((player.global_transform.origin 
-					- self.global_transform.origin).normalized()) * -1
-	
+
+	# 
+	var global_direction = (global_basis * target_position).normalized()
+
+	print("Direction?")
+	print(global_direction)
 	# Applies physics on the object.
-	throwable.apply_impulse(direction * move_force * throw_force)
+	throwable.apply_impulse(global_direction * move_force * throw_force)
 
 
 	throwable = null
