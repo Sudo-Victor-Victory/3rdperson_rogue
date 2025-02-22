@@ -73,10 +73,13 @@ func throw_object():
 	throwable.freeze = false
 	# add it back to the game world
 	throwable.reparent(get_tree().root)
-	print(throwable.get_parent().name)
 	
-	var direction = self.to_global(self.target_position.normalized()) * -1
+	# Calculates raycast position locally, gets unit vector for direction, then
+	# changes the unit vector to a global-unit vector
+	var direction = self.to_global((player.global_transform.origin 
+					- self.global_transform.origin).normalized()) * -1
 	
+	# Applies physics on the object.
 	throwable.apply_impulse(direction * move_force * throw_force)
 
 
