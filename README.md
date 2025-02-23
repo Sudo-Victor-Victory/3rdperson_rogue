@@ -18,7 +18,11 @@ Here's day 5
 
 https://github.com/user-attachments/assets/c981d2ad-1899-4896-96ab-bafc7125d5de
 
+Day 6
 
+
+
+https://github.com/user-attachments/assets/deba9437-44a4-4dbe-9e1f-220d503d18d8
 
 
 ## License
