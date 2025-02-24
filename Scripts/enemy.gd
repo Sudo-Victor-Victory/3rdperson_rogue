@@ -1,18 +1,23 @@
+class_name Enemy
 extends CharacterBody3D
 
 
 const movement_speed = 4.0
-
+var   movement_delta 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 @onready var navigation_agent_3d = $NavigationAgent3D
 @onready var player = $"../../Player"
+@onready var enemy_state_machine = $EnemyStateMachine
 
 
 
-var movement_delta 
+
+func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	enemy_state_machine.init(self)
 
 func _process(delta):
 	var direction = self.transform.origin
