@@ -24,6 +24,12 @@ Day 6
 
 https://github.com/user-attachments/assets/deba9437-44a4-4dbe-9e1f-220d503d18d8
 
+Day 7
+
+
+
+https://github.com/user-attachments/assets/ae24fb8f-6b93-4d58-b54a-2ad7943f2055
+
 
 ## License
 
