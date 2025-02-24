@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://bjtixn0gfto0w"]
+[gd_scene load_steps=23 format=3 uid="uid://bjtixn0gfto0w"]
 
 [ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://Assets/textures/grids/Green/texture_01.png" id="2_4tat1"]
 [ext_resource type="Texture2D" uid="uid://6o3hwigx2swq" path="res://Assets/textures/grids/Orange/texture_06.png" id="3_c1prp"]
 [ext_resource type="Texture2D" uid="uid://svp317oq35y5" path="res://Assets/textures/grids/Red/texture_03.png" id="3_dfgtt"]
+[ext_resource type="PackedScene" uid="uid://bwfr2ynb2sisy" path="res://Scenes/enemy.tscn" id="5_jnnpq"]
 [ext_resource type="PackedScene" uid="uid://cqnl34fkw0fno" path="res://Scenes/player.tscn" id="5_swp4n"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_76kw0"]
@@ -18,17 +19,6 @@ sky = SubResource("Sky_5ki63")
 tonemap_mode = 2
 sdfgi_enabled = true
 fog_enabled = true
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2ddm8"]
-resource_local_to_scene = true
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_bpyi5"]
-size = Vector3(100, 1, 100)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oiqun"]
-albedo_texture = ExtResource("2_4tat1")
-
-[sub_resource type="BoxMesh" id="BoxMesh_nsuhc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ynb6o"]
 resource_local_to_scene = true
@@ -59,6 +49,23 @@ albedo_texture = ExtResource("3_c1prp")
 [sub_resource type="BoxMesh" id="BoxMesh_mvxxe"]
 size = Vector3(3, 3, 3)
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_548dv"]
+vertices = PackedVector3Array(-49.5, 1, 11, 1.25, 1, 11, 1.75, 1, 10.5, 1.75, 1, -49.5, -49.5, 1, -49.5, 1.75, 1, 10.5, 2.5, 1, 11, 49.5, 1, 11, 49.5, 1, -49.5, 1.75, 1, -49.5, 1.75, 1, 49.5, 1.75, 1, 11.75, 1.25, 1, 11, -49.5, 1, 11, -49.5, 1, 49.5, 2.25, 1, 11.75, 1.75, 1, 11.75, 1.75, 1, 49.5, 2.5, 1, 11, 2.25, 1, 11.75, 1.75, 1, 49.5, 49.5, 1, 49.5, 49.5, 1, 11)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 9), PackedInt32Array(7, 9, 8), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(13, 10, 14), PackedInt32Array(17, 16, 15), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 22), PackedInt32Array(20, 22, 21)]
+agent_height = 2.0
+agent_max_climb = 22.87
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2ddm8"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bpyi5"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oiqun"]
+albedo_texture = ExtResource("2_4tat1")
+
+[sub_resource type="BoxMesh" id="BoxMesh_nsuhc"]
+
 [node name="GameWorld" type="Node3D"]
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
@@ -68,21 +75,8 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ljsrq")
 
-[node name="Platform" type="Node3D" parent="."]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Platform"]
-physics_material_override = SubResource("PhysicsMaterial_2ddm8")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform/StaticBody3D"]
-shape = SubResource("BoxShape3D_bpyi5")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
-transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_oiqun")
-mesh = SubResource("BoxMesh_nsuhc")
-
 [node name="Player" parent="." instance=ExtResource("5_swp4n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0517, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.604, 0.5, 3.885)
 collision_layer = 3
 collision_mask = 3
 
@@ -127,3 +121,23 @@ shape = SubResource("BoxShape3D_urqrw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.525858)
 material_override = SubResource("StandardMaterial3D_mlmra")
 mesh = SubResource("BoxMesh_mvxxe")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_548dv")
+navigation_layers = 3
+
+[node name="Platform" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Platform"]
+physics_material_override = SubResource("PhysicsMaterial_2ddm8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Platform/StaticBody3D"]
+shape = SubResource("BoxShape3D_bpyi5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Platform"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_oiqun")
+mesh = SubResource("BoxMesh_nsuhc")
+
+[node name="Enemy" parent="NavigationRegion3D" instance=ExtResource("5_jnnpq")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.83251, 1.89717, -9.06727)
