@@ -14,9 +14,9 @@ func exit() -> void:
 
 
 func process_physics(delta: float) -> State:
+	# Look into method to D.R.Y.
 	if parent.global_position.distance_to(parent.player.global_position) < 10:
 		var direction = self.transform.origin
-		# This is ok
 		parent.navigation_agent_3d.set_target_position(parent.player.global_position)
 		
 		parent.movement_delta = parent.movement_speed * delta

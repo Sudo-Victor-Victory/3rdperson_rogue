@@ -50,10 +50,10 @@ albedo_texture = ExtResource("3_c1prp")
 size = Vector3(3, 3, 3)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_548dv"]
-vertices = PackedVector3Array(-49.5, 1, 11, 1.25, 1, 11, 1.75, 1, 10.5, 1.75, 1, -49.5, -49.5, 1, -49.5, 1.75, 1, 10.5, 2.5, 1, 11, 49.5, 1, 11, 49.5, 1, -49.5, 1.75, 1, -49.5, 1.75, 1, 49.5, 1.75, 1, 11.75, 1.25, 1, 11, -49.5, 1, 11, -49.5, 1, 49.5, 2.25, 1, 11.75, 1.75, 1, 11.75, 1.75, 1, 49.5, 2.5, 1, 11, 2.25, 1, 11.75, 1.75, 1, 49.5, 49.5, 1, 49.5, 49.5, 1, 11)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 9), PackedInt32Array(7, 9, 8), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(13, 10, 14), PackedInt32Array(17, 16, 15), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 22), PackedInt32Array(20, 22, 21)]
+vertices = PackedVector3Array(-49.5, 1, -49.5, -49.5, 1, 49.5, 49.5, 1, 49.5, 49.5, 1, -49.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 agent_height = 2.0
-agent_max_climb = 22.87
+agent_max_climb = 3.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2ddm8"]
 resource_local_to_scene = true
