@@ -1,3 +1,5 @@
+
+https://github.com/user-attachments/assets/83e3bdfc-755b-42be-8220-3f9cbbc67147
 # 3rdperson_rogue
 
 3rdperson_rogue is a 3rd person roguelike game I am building over the span of a week. 
@@ -29,6 +31,13 @@ Day 7
 
 
 https://github.com/user-attachments/assets/ae24fb8f-6b93-4d58-b54a-2ad7943f2055
+
+Day 8
+
+
+
+https://github.com/user-attachments/assets/8dc7db34-d52c-49ee-9b04-4a633c7410c4
+
 
 
 ## License
