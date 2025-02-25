@@ -97,6 +97,7 @@ func throw_object(obj):
 	obj.reparent(get_tree().root)
 	# Calculates a normalized global direction from the raycast's current position towards the
 	# Raycast's destination point. It works !!!!!
+	# Note: Factor in relative_position to get the ball to shoot towards raycast / mouse
 	var global_direction = (global_basis * target_position).normalized()
 
 	# Applies physics on the object.

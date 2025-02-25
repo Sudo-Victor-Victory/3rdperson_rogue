@@ -15,15 +15,11 @@ func _ready():
 	pass # Replace with function body.
 
 func init(parent) -> void:
-	print(parent.name)
-	if parent is Player:
-		print("yippeee")
-		for child in get_children():
-			print(child.name)
-			child.parent = parent
-		change_state(starting_state)
-	if parent is Enemy:
-		print("GRRR")
+	for child in get_children():
+		print(child.name)
+		child.parent = parent
+	change_state(starting_state)
+
 	
 
 	
