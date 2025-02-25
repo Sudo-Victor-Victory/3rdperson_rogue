@@ -97,7 +97,8 @@ func throw_object(obj):
 	obj.reparent(get_tree().root)
 	# Calculates a normalized global direction from the raycast's current position towards the
 	# Raycast's destination point. It works !!!!!
-	var global_direction = (global_basis * target_position).normalized()
+	# Has Vector3(2,0,0) to get object to be in the same x position before the offset change
+	var global_direction = ((global_basis * target_position) + Vector3(2,0,0)).normalized()
 
 	# Applies physics on the object.
 	obj.apply_impulse(global_direction * move_force * throw_force)

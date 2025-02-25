@@ -14,11 +14,14 @@ var current_state: State
 func _ready():
 	pass # Replace with function body.
 
-func init(parent: Player) -> void:
+func init(parent) -> void:
 	for child in get_children():
 		print(child.name)
 		child.parent = parent
 	change_state(starting_state)
+
+	
+
 	
 
 func change_state(new_state ) -> void:
