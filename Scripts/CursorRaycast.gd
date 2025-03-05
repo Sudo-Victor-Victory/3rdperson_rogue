@@ -27,6 +27,8 @@ var secondary_pickup = false
 # Has the user pressed RMB to throw
 var secondary_throw = false
 
+
+var my_script = load("res://Scripts/ThrownObject.gd") 
 func _process(delta):
 	if Input.is_action_just_pressed("secondary"):
 		if secondary_throw:
@@ -41,6 +43,7 @@ func _process(delta):
 	if Input.is_action_pressed("primary"):
 		if !primary_fire:
 			ball = primary_ball.duplicate()
+			ball.add_to_group("projectiles")
 			ball.visible = true
 			player.add_child(ball)
 			ball.get_child(0).disabled = false
@@ -62,6 +65,8 @@ func _process(delta):
 func _physics_process(delta) -> void:
 	if secondary_pickup:
 		# Gets collider of object the raycast is hitting
+		throwable.set_script(my_script) 
+		throwable.contact_monitor = true
 		secondary_pickup_player(throwable)
 		
 		
