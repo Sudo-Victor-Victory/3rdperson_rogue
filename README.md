@@ -1,12 +1,11 @@
 
-https://github.com/user-attachments/assets/83e3bdfc-755b-42be-8220-3f9cbbc67147
 # 3rdperson_rogue
 
 3rdperson_rogue is a 3rd person roguelike game I am building. It is no longer a fake jam project but something I am doing full time!
 The goal is to have 2 working characters, 2 very simple enemies, one arena, and have fun while building & playing. 
 # Showcase
 
-Here's a small showcase of what is currently available.
+Here's a small showcase of progress by the initial weeklong game-jam, then by features :) 
 
 https://github.com/user-attachments/assets/a7e7f98e-3cf6-4649-a668-9abcd18d5d78
 
@@ -39,7 +38,7 @@ Day 8
 https://github.com/user-attachments/assets/8dc7db34-d52c-49ee-9b04-4a633c7410c4
 
 
-FEATURE #1:
+FEATURE #1 - Enemies receive damage & die:
 
 
 
