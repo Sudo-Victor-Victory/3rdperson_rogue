@@ -5,7 +5,7 @@ extends State
 
 func enter() -> void:
 	super()
-	parent.movement_speed =  8
+	parent.movement_speed =  5
 
 
 func exit() -> void:

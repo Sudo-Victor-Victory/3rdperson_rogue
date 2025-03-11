@@ -124,7 +124,6 @@ mesh = SubResource("BoxMesh_mvxxe")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_548dv")
-navigation_layers = 3
 
 [node name="Platform" type="Node3D" parent="NavigationRegion3D"]
 
@@ -141,3 +140,5 @@ mesh = SubResource("BoxMesh_nsuhc")
 
 [node name="Enemy" parent="NavigationRegion3D" instance=ExtResource("5_jnnpq")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -5.31664, 1.89717, -15.1108)
+
+[connection signal="body_entered" from="Box 3" to="Player" method="_on_box_3_body_entered"]

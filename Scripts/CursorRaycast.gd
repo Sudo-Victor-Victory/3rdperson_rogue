@@ -17,6 +17,7 @@ var hold_time : float = 1.0
 
 # Rigidbody3d references that allow us to call physics functions on
 var throwable = null
+# Reference to the left click primary object
 var ball = null
 
 
@@ -27,10 +28,11 @@ var secondary_pickup = false
 # Has the user pressed RMB to throw
 var secondary_throw = false
 
+
+var my_script = load("res://Scripts/ThrownObject.gd") 
 func _process(delta):
 	if Input.is_action_just_pressed("secondary"):
 		if secondary_throw:
-			print("I called throw")
 			throw_object(throwable)
 			secondary_throw = false
 		elif is_colliding():
@@ -41,7 +43,9 @@ func _process(delta):
 	if Input.is_action_pressed("primary"):
 		if !primary_fire:
 			ball = primary_ball.duplicate()
+			ball.add_to_group("projectiles")
 			ball.visible = true
+			# Used to have the ball be in a relative position to the player.
 			player.add_child(ball)
 			ball.get_child(0).disabled = false
 			primary_fire = true
@@ -62,6 +66,8 @@ func _process(delta):
 func _physics_process(delta) -> void:
 	if secondary_pickup:
 		# Gets collider of object the raycast is hitting
+		throwable.set_script(my_script) 
+		throwable.contact_monitor = true
 		secondary_pickup_player(throwable)
 		
 		
@@ -93,12 +99,13 @@ func secondary_pickup_player(throwable):
 func throw_object(obj):
 	# Apply physics on collided obj
 	obj.freeze = false
+	obj.can_hurt_enemy = true
 	# add it back to the game world
 	obj.reparent(get_tree().root)
 	# Calculates a normalized global direction from the raycast's current position towards the
 	# Raycast's destination point. It works !!!!!
-	# Has Vector3(2,0,0) to get object to be in the same x position before the offset change
-	var global_direction = ((global_basis * target_position) + Vector3(2,0,0)).normalized()
+	# Gets the direction from the current object to be thrown to the raycast point position.
+	var global_direction = ((global_basis * target_position) + obj.to_global(Vector3.ZERO).direction_to(target_position)).normalized()
 
 	# Applies physics on the object.
 	obj.apply_impulse(global_direction * move_force * throw_force)

@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 
 var movement_speed = 4.0
-var   movement_delta 
+var movement_delta 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -13,7 +13,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var enemy_state_machine = $EnemyStateMachine
 @onready var animation_player = $"Character Visuals/mixamo_base/AnimationPlayer"
 
-
+var health = 10
 
 
 func _ready():
@@ -30,3 +30,14 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= gravity * delta
 	move_and_slide()
 	enemy_state_machine.process_physics(delta)
+
+
+func _on_area_3d_body_part_hit(damage):
+	health -= damage
+	print("New health ")
+	print( health)
+	if health <=0:
+		print("Enemy died")
+		queue_free()
+
+
