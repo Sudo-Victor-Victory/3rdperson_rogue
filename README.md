@@ -2,7 +2,7 @@
 https://github.com/user-attachments/assets/83e3bdfc-755b-42be-8220-3f9cbbc67147
 # 3rdperson_rogue
 
-3rdperson_rogue is a 3rd person roguelike game I am building over the span of a week. 
+3rdperson_rogue is a 3rd person roguelike game I am building. It is no longer a fake jam project but something I am doing full time!
 The goal is to have 2 working characters, 2 very simple enemies, one arena, and have fun while building & playing. 
 # Showcase
 
@@ -37,6 +37,14 @@ Day 8
 
 
 https://github.com/user-attachments/assets/8dc7db34-d52c-49ee-9b04-4a633c7410c4
+
+
+FEATURE #1:
+
+
+
+
+https://github.com/user-attachments/assets/17fd9118-88ec-467e-917a-fda3c8551f92
 
 
 
