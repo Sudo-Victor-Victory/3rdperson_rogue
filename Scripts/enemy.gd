@@ -33,7 +33,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_3d_body_part_hit(damage):
-	print("I GOT HIT")
 	health -= damage
+	print("New health ")
+	print( health)
 	if health <=0:
+		print("Enemy died")
 		queue_free()
+
+

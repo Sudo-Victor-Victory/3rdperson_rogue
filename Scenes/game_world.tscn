@@ -124,7 +124,6 @@ mesh = SubResource("BoxMesh_mvxxe")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_548dv")
-navigation_layers = 3
 
 [node name="Platform" type="Node3D" parent="NavigationRegion3D"]
 

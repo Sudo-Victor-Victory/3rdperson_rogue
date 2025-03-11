@@ -1,9 +1,7 @@
 extends RigidBody3D
 
-# Damage amount
-var damage = 10
-@onready var collision_shape_3d = $CollisionShape3D
-
+# Is used to stop unintended collisions with enemies
+var can_hurt_enemy = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,6 +14,3 @@ func _process(delta):
 
 
 
-func _on_body_entered(body):
-	if body.is_in_group("enemies"):
-		print("hii")
