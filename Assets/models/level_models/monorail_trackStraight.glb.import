@@ -1,15 +1,15 @@
 [remap]
 
-importer="animation_library"
+importer="scene"
 importer_version=1
-type="AnimationLibrary"
-uid="uid://dtwkf7bucw687"
-path="res://.godot/imported/Crouched walk.glb-c6de5a2199752189babbd09481a8b39b.res"
+type="PackedScene"
+uid="uid://dog2p6bu3tluq"
+path="res://.godot/imported/monorail_trackStraight.glb-b923f562e93a7c9265f3481c15a7ff31.scn"
 
 [deps]
 
-source_file="res://Assets/models/Crouched walk.glb"
-dest_files=["res://.godot/imported/Crouched walk.glb-c6de5a2199752189babbd09481a8b39b.res"]
+source_file="res://Assets/models/level_models/monorail_trackStraight.glb"
+dest_files=["res://.godot/imported/monorail_trackStraight.glb-b923f562e93a7c9265f3481c15a7ff31.scn"]
 
 [params]
 
@@ -25,7 +25,7 @@ meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
-animation/fps=60.0
+animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
