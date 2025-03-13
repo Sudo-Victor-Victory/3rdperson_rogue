@@ -95,6 +95,7 @@ func secondary_pickup_player(throwable):
 			throwable.freeze = true
 			secondary_pickup = false
 			secondary_throw = true
+			throwable.add_to_group("projectiles")
 			
 func throw_object(obj):
 	# Apply physics on collided obj
