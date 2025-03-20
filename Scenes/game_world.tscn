@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bjtixn0gfto0w"]
+[gd_scene load_steps=31 format=3 uid="uid://bjtixn0gfto0w"]
 
 [ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://Assets/textures/grids/Green/texture_01.png" id="2_4tat1"]
 [ext_resource type="Texture2D" uid="uid://6o3hwigx2swq" path="res://Assets/textures/grids/Orange/texture_06.png" id="3_c1prp"]
@@ -7,10 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://bryvqumhl8402" path="res://Assets/textures/materials/Floor_Mosaic_01_metallic.jpg" id="5_jnwdy"]
 [ext_resource type="PackedScene" uid="uid://cqnl34fkw0fno" path="res://Scenes/player.tscn" id="5_swp4n"]
 [ext_resource type="PackedScene" uid="uid://hmhq3i67vh2s" path="res://Scenes/Hanger.tscn" id="7_6qx8u"]
-[ext_resource type="PackedScene" uid="uid://drnc2me3l1n4" path="res://Scenes/roadRail.tscn" id="8_kg6vd"]
-[ext_resource type="PackedScene" uid="uid://66t82gawhhjm" path="res://Scenes/roadRailCurved.tscn" id="9_q0akr"]
+[ext_resource type="PackedScene" uid="uid://drnc2me3l1n4" path="res://Scenes/Monorail_Road.tscn" id="8_kg6vd"]
+[ext_resource type="PackedScene" uid="uid://66t82gawhhjm" path="res://Scenes/Monorail_Road_Curved.tscn" id="9_q0akr"]
 [ext_resource type="PackedScene" uid="uid://cs3mcs34w3f3o" path="res://Scenes/Meteor.tscn" id="10_idg7u"]
 [ext_resource type="PackedScene" uid="uid://cx88anqvtndu3" path="res://Scenes/Large_Rock.tscn" id="11_bwqis"]
+[ext_resource type="PackedScene" uid="uid://c4txk5utmpr4u" path="res://Scenes/Monorail_Box.tscn" id="12_1vppt"]
+[ext_resource type="PackedScene" uid="uid://cgcdjxh5kuvmg" path="res://Scenes/Monorail_end.tscn" id="13_784ae"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_76kw0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -151,48 +153,48 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -5.316
 [node name="hangar_largeB2" parent="." instance=ExtResource("7_6qx8u")]
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 15.378, 0.5, -8.71932)
 
-[node name="RoadBlocks" type="Node3D" parent="."]
+[node name="MonoRail_Blocks" type="Node3D" parent="."]
 
-[node name="monorail_trackCornerSmall2" parent="RoadBlocks" instance=ExtResource("9_q0akr")]
+[node name="monorail_trackCornerSmall2" parent="MonoRail_Blocks" instance=ExtResource("9_q0akr")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 15.2405, 0.5, 25.9425)
 
-[node name="monorail_trackStraight2" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight2" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 15.2726, 0.5, 1.98003)
 
-[node name="monorail_trackStraight3" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight3" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 15.2726, 0.5, 5.96945)
 
-[node name="monorail_trackStraight4" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight4" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 15.2726, 0.5, 9.95843)
 
-[node name="monorail_trackStraight5" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight5" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 15.2726, 0.5, 13.9048)
 
-[node name="monorail_trackStraight6" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight6" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 15.2726, 0.5, 17.8977)
 
-[node name="monorail_trackStraight7" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight7" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 15.2726, 0.5, 21.9348)
 
-[node name="monorail_trackStraight8" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight8" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 11.3033, 0.5, 25.9446)
 
-[node name="monorail_trackStraight9" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight9" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 7.31155, 0.5, 25.9285)
 
-[node name="monorail_trackStraight10" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight10" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 3.29745, 0.5, 25.9459)
 
-[node name="monorail_trackStraight11" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight11" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -0.664812, 0.5, 25.9542)
 
-[node name="monorail_trackStraight12" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight12" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -4.63026, 0.5, 25.9769)
 
-[node name="monorail_trackStraight13" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight13" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -8.60905, 0.5, 25.9861)
 
-[node name="monorail_trackStraight14" parent="RoadBlocks" instance=ExtResource("8_kg6vd")]
+[node name="monorail_trackStraight14" parent="MonoRail_Blocks" instance=ExtResource("8_kg6vd")]
 transform = Transform3D(-1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, -12.6076, 0.5, 26.0026)
 
 [node name="meteor2" parent="." instance=ExtResource("10_idg7u")]
@@ -202,11 +204,27 @@ collision_mask = 3
 
 [node name="rock_largeB2" parent="." instance=ExtResource("11_bwqis")]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -21.3086, 0.5, 38.0361)
+collision_layer = 3
+collision_mask = 3
 
 [node name="rock_largeB3" parent="." instance=ExtResource("11_bwqis")]
 transform = Transform3D(6.3197, 0, 4.90524, 0, 8, 0, -4.90524, 0, 6.3197, -11.2682, 0.603004, -5.62296)
+collision_layer = 3
+collision_mask = 3
 
 [node name="rock_largeB4" parent="." instance=ExtResource("11_bwqis")]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -29.7541, 0.500001, 12.4866)
+collision_layer = 3
+collision_mask = 3
+
+[node name="monorail_trainBox2" parent="." instance=ExtResource("12_1vppt")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, -0.15511, 0.686033, 25.9792)
+collision_layer = 3
+collision_mask = 3
+
+[node name="monorail_trainEnd2" parent="." instance=ExtResource("13_784ae")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 4.92954, 0.588445, 25.9449)
+collision_layer = 3
+collision_mask = 3
 
 [connection signal="body_entered" from="Box 3" to="Player" method="_on_box_3_body_entered"]
