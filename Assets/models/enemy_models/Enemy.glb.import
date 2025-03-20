@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://f5tyfdc4kmu0"
-path="res://.godot/imported/Enemy.glb-9474e2ab1051406808a3d5930352b0f1.scn"
+path="res://.godot/imported/Enemy.glb-0b73a1c3863722c9f818d8a081c245bb.scn"
 
 [deps]
 
-source_file="res://Assets/models/Enemy.glb"
-dest_files=["res://.godot/imported/Enemy.glb-9474e2ab1051406808a3d5930352b0f1.scn"]
+source_file="res://Assets/models/enemy_models/Enemy.glb"
+dest_files=["res://.godot/imported/Enemy.glb-0b73a1c3863722c9f818d8a081c245bb.scn"]
 
 [params]
 
