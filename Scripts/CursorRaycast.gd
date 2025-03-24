@@ -4,13 +4,13 @@ extends RayCast3D
 @onready var primary_ball = $"../../PrimaryBall"
 
 # Offset off the base player model
-var relative_offset = Vector3(-2,3, 0)
+var relative_offset = Vector3(0,3.5, 0)
 
 # Max distance between player & selected object
 var stop_distance = 1.5
 
 var move_force = 2
-var throw_force = 4
+var throw_force = 20
 
 var hold_counter : float = 0.0
 var hold_time : float = 1.0
@@ -65,6 +65,9 @@ func _process(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta) -> void:
 	if secondary_pickup:
+		if !(throwable is RigidBody3D):
+			secondary_pickup
+			return
 		# Gets collider of object the raycast is hitting
 		throwable.set_script(my_script) 
 		throwable.contact_monitor = true
@@ -97,16 +100,15 @@ func secondary_pickup_player(throwable):
 			secondary_throw = true
 			throwable.add_to_group("projectiles")
 			
-func throw_object(obj):
+func throw_object(obj: RigidBody3D):
 	# Apply physics on collided obj
 	obj.freeze = false
 	obj.can_hurt_enemy = true
 	# add it back to the game world
 	obj.reparent(get_tree().root)
-	# Calculates a normalized global direction from the raycast's current position towards the
-	# Raycast's destination point. It works !!!!!
-	# Gets the direction from the current object to be thrown to the raycast point position.
-	var global_direction = ((global_basis * target_position) + obj.to_global(Vector3.ZERO).direction_to(target_position)).normalized()
+
+	# 
+	var global_direction = to_global(Vector3.ZERO).direction_to(to_global(   (target_position  )))
 
 	# Applies physics on the object.
 	obj.apply_impulse(global_direction * move_force * throw_force)
