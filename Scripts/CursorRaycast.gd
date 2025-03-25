@@ -4,13 +4,13 @@ extends RayCast3D
 @onready var primary_ball = $"../../PrimaryBall"
 
 # Offset off the base player model
-var relative_offset = Vector3(0,3.5, 0)
+var relative_offset = Vector3(-2,3.5, 0)
 
 # Max distance between player & selected object
 var stop_distance = 1.5
 
 var move_force = 2
-var throw_force = 20
+var throw_force = 8
 
 var hold_counter : float = 0.0
 var hold_time : float = 1.0
@@ -107,8 +107,10 @@ func throw_object(obj: RigidBody3D):
 	# add it back to the game world
 	obj.reparent(get_tree().root)
 
-	# 
-	var global_direction = to_global(Vector3.ZERO).direction_to(to_global(   (target_position  )))
+	# Resetting target position to get the raycast's location
+	var target_position = global_transform.translated_local(self.target_position).origin
+	# Has the target position and subs the position of the obj to know what direction to go
+	var global_direction =  (target_position - obj.global_position).normalized()
 
 	# Applies physics on the object.
 	obj.apply_impulse(global_direction * move_force * throw_force)
