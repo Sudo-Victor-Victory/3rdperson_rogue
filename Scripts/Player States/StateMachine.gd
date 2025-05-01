@@ -14,18 +14,21 @@ var current_state: State
 func _ready():
 	pass # Replace with function body.
 
-func init(parent) -> void:
+# Allows children of State Machine (States themselves) to directly effect the Player
+# By making the States children of the player.
+func init(player) -> void:
 	for child in get_children():
-		print(child.name)
-		child.parent = parent
+		child.parent = player
 	change_state(starting_state)
 
+# Removes the ability of State scripts under a State Machine to effect the Player.
+func terminate() -> void:
+	for child in get_children():
+		child.parent = null
+	current_state.exit()
+	current_state = null
 	
-
-	
-
-func change_state(new_state ) -> void:
-	
+func change_state(new_state) -> void:
 	if current_state != null && current_state != new_state:
 		current_state.exit()
 	current_state = new_state

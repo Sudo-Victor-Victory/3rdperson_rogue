@@ -20,7 +20,7 @@ func enter() -> void:
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_pressed("run"):
-		print("NP going from walking to running")
+		print("Going to Run")
 		return running_state
 	return self
 
@@ -31,7 +31,7 @@ func process_physics(delta: float) -> State:
 	var direction = (parent.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	if !direction:
-		print("NP going from from walking to idle")
+		print("Going to Idle")
 		return idle_state
 
 	return self

@@ -17,10 +17,10 @@ func exit() -> void:
 func process_input(event: InputEvent) -> State:
 	if Input.get_vector("left", "right", "forward", "backward") != Vector2(0,0):
 		if(Input.is_action_pressed("run")):
-			print("NP Running")
+			print("Running")
 			return running_state
 		else:
-			print("Going from NP running to walking")
+			print("Walking")
 			return walking_state
 	else:
 		return self

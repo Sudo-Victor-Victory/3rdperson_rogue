@@ -28,10 +28,10 @@ func process_input(event: InputEvent) -> State:
 	if Input.is_action_pressed("run") && is_direction_vector:
 		return self
 	elif  is_direction_vector :
-		print("NP going from Running to Walking")
+		print("Going to walk")
 		return walking_state
 	else:
-		print("NP going from Running to idle")
+		print("Going to idle")
 		return idle_state
 
 
