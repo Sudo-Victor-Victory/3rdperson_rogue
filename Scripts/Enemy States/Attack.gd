@@ -21,7 +21,13 @@ func process_physics(delta: float) -> State:
 	else:
 		return self
 
-func _on_animation_player_animation_finished(anim_name):
-	print("Does this work?")
-	if anim_name == "EnemyAttack":
-		is_attacking = false
+func _hit_finished():
+	# Call another function or signal to check for collisions.
+	is_attacking = false
+
+
+
+func _on_area_3d_body_entered(body):
+	if body.name == "Player":
+		print("Hello")
+	print(body.name)
