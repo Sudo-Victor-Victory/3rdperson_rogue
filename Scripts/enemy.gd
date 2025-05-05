@@ -14,7 +14,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var animation_player = $"Character Visuals/mixamo_base/AnimationPlayer"
 
 var health = 10
-
+const ATTACK_RANGE = 1.5
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

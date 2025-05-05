@@ -2,7 +2,7 @@ extends State
 
 @export var idle_state : State
 @export var running_state : State
-
+@export var attack_state : State
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,6 +20,8 @@ func enter() -> void:
 
 
 func process_physics(delta: float) -> State:
+	if parent.global_position.distance_to(parent.player.global_position) < parent.ATTACK_RANGE:
+		return attack_state
 	if parent.global_position.distance_to(parent.player.global_position) < 10:
 		return running_state
 	if parent.global_position.distance_to(parent.player.global_position) < 20:
