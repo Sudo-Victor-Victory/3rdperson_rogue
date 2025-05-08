@@ -2,6 +2,7 @@ extends State
 
 @export var walking_state : State
 @export var idle_state : State
+@export var attack_state : State
 
 func enter() -> void:
 	super()
@@ -15,6 +16,8 @@ func exit() -> void:
 
 func process_physics(delta: float) -> State:
 	# Look into method to D.R.Y.
+	if parent.global_position.distance_to(parent.player.global_position) < parent.ATTACK_RANGE:
+		return attack_state
 	if parent.global_position.distance_to(parent.player.global_position) < 10:
 		var direction = self.transform.origin
 		parent.navigation_agent_3d.set_target_position(parent.player.global_position)

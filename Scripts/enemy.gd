@@ -12,13 +12,14 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var player = $"../../Player"
 @onready var enemy_state_machine = $EnemyStateMachine
 @onready var animation_player = $"Character Visuals/mixamo_base/AnimationPlayer"
-
+signal damage_player(damage) # Signal used to send damage to the player
 var health = 10
-
+const ATTACK_RANGE = 1.5
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	enemy_state_machine.init(self)
+	connect("damage_player", Callable(player, "_receive_damage"))
 
 func _process(delta):
 	look_at(Vector3(player.global_position.x, player.global_position.y, player.global_position.z))
@@ -34,8 +35,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_3d_body_part_hit(damage):
 	health -= damage
-	print("New health ")
-	print( health)
+	print("New health ", health)
 	if health <=0:
 		print("Enemy died")
 		queue_free()
