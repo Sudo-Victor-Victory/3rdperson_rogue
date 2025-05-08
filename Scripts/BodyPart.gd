@@ -14,7 +14,6 @@ func _process(delta):
 
 func hit(body):
 	if body.is_in_group("projectiles") && body.can_hurt_enemy == true:
-		print("Enemy was hit")
 		# Calls _on_area_3d_body_part_hit in Enemy.gd
 		body_part_hit.emit(damage)
 		# Once the projectile hits the enemy we do not track damage.

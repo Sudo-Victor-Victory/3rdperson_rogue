@@ -24,6 +24,9 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var horizontal_sensitivity = 0.5
 @export var vertical_sensitivity   = 0.5
 @export var current_state_machine = Node3D
+
+var health = 50
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	current_state_machine.init(self)
@@ -63,4 +66,7 @@ func _process(delta: float) -> void:
 	current_state_machine.process_frame(delta)
 
 
-
+func _receive_damage(data):
+	print("Player received action request from enemy via group!")
+	health -= data
+	print("New health " , health)
