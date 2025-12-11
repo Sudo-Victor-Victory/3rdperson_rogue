@@ -34,7 +34,19 @@ func process_input(event: InputEvent) -> State:
 		print("Going to idle")
 		return idle_state
 
-
+# Teleport <3 
 func process_physics(delta: float) -> State:
+	# Get the input direction and handle the movement/deceleration.
+	var input_dir = Input.get_vector("left", "right", "forward", "backward")
+	var direction = (parent.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+	if direction:
+		parent.character_visuals.look_at(parent.position+direction)
+		# Turn off character collision
+		parent.global_transform.origin += direction * (parent.SPEED * 2)
+		# Turn on enemy collision
+	else:
+		return idle_state
+
 	return self
 	
