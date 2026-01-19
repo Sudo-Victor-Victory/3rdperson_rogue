@@ -2,6 +2,7 @@ extends State
 
 @export var walking_state : State
 @export var running_state : State
+@export var attack_state : State
 
 
 func enter() -> void:
@@ -15,10 +16,14 @@ func exit() -> void:
 	pass
 	
 func process_input(event: InputEvent) -> State:
+	if (Input.is_action_pressed("temp")):
+		print("attacking")
+		return attack_state
 	if Input.get_vector("left", "right", "forward", "backward") != Vector2(0,0):
 		if(Input.is_action_pressed("run")):
 			print("Running")
 			return running_state
+
 		else:
 			print("Walking")
 			return walking_state

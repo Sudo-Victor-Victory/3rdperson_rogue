@@ -2,36 +2,38 @@ extends State
 
 @export var idle_state : State
 @export var running_state : State
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-	
-func enter() -> void:
-	super()
-	
+@export var roll_state : State
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_pressed("run"):
-		print("Going to Run")
 		return running_state
+	if Input.is_action_just_pressed("roll"):
+		return roll_state
 	return self
 
 
 func process_physics(delta: float) -> State:
-	# Get the input direction and handle the movement/deceleration.
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
-	var direction = (parent.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	if !direction:
-		print("Going to Idle")
+	# No movement → return idle
+	if input_dir.length() == 0:
 		return idle_state
+
+	# Use the yaw pivot for direction (NOT the full camera)
+	var cam = parent.camera_pivot_y  
+
+	var forward = cam.transform.basis.z * -1
+	var right = cam.transform.basis.x 
+
+	var move_dir = (-input_dir.y * forward) + (input_dir.x * right)
+	move_dir.y = 0
+	move_dir = move_dir.normalized()
+
+	# Move the character
+	parent.velocity.x = move_dir.x * parent.SPEED
+	parent.velocity.z = move_dir.z * parent.SPEED
+
+	# Rotate character model only while moving
+	parent.rotate_visuals_toward(move_dir)
 
 	return self

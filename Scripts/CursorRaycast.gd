@@ -1,8 +1,8 @@
 extends RayCast3D
 
 @onready var player = $"../.."
-@onready var primary_ball = $"../../PrimaryBall"
-
+@onready var primary_ball = $"../../../PrimaryBall"
+@onready var camera: Camera3D = $"../Camera3D"
 # Offset off the base player model
 var relative_offset = Vector3(-2,3.5, 0)
 
@@ -30,37 +30,46 @@ var secondary_throw = false
 
 
 var my_script = load("res://Scripts/ThrownObject.gd") 
+
+
 func _process(delta):
+	#  FORCE RAYCAST TO FOLLOW MOUSE + CAMERA 
+	var mouse_pos = get_viewport().get_mouse_position()
+
+	var ray_origin = camera.project_ray_origin(mouse_pos)
+	var ray_dir = camera.project_ray_normal(mouse_pos)
+
+	global_position = ray_origin
+	target_position = ray_dir * 10
+
+	# SECONDARY PICKUP 
 	if Input.is_action_just_pressed("secondary"):
 		if secondary_throw:
 			throw_object(throwable)
 			secondary_throw = false
 		elif is_colliding():
-			# Gets collider of object the raycast is hitting
 			secondary_pickup = true
 			throwable = get_collider()
 
+	# PRIMARY FIRE
 	if Input.is_action_pressed("primary"):
 		if !primary_fire:
 			ball = primary_ball.duplicate()
 			ball.add_to_group("projectiles")
 			ball.visible = true
-			# Used to have the ball be in a relative position to the player.
 			player.add_child(ball)
 			ball.get_child(0).disabled = false
 			primary_fire = true
-		
+
 		hold_counter += delta
 		if hold_counter > 0.1:
-			# Rigidbody3d does not like its scale being modified. Workaround is mod. its children.
-			ball.get_node("CollisionShape3D").scale += Vector3(hold_counter * 0.001 ,  hold_counter * 0.001, hold_counter * 0.001)
-			ball.get_node("MeshInstance3D").scale += Vector3(hold_counter * 0.001 ,  hold_counter * 0.001, hold_counter * 0.001)
-	
-	if Input.is_action_just_released("primary") :
+			ball.get_node("CollisionShape3D").scale += Vector3.ONE * hold_counter * 0.001
+			ball.get_node("MeshInstance3D").scale += Vector3.ONE * hold_counter * 0.001
+
+	if Input.is_action_just_released("primary"):
 		throw_object(ball)
 		hold_counter = 0.0
 		primary_fire = false
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta) -> void:
@@ -101,16 +110,18 @@ func secondary_pickup_player(throwable):
 			throwable.add_to_group("projectiles")
 			
 func throw_object(obj: RigidBody3D):
-	# Apply physics on collided obj
 	obj.freeze = false
 	obj.can_hurt_enemy = true
-	# add it back to the game world
 	obj.reparent(get_tree().root)
 
-	# Resetting target position to get the raycast's location
-	var target_position = global_transform.translated_local(self.target_position).origin
-	# Has the target position and subs the position of the obj to know what direction to go
-	var global_direction =  (target_position - obj.global_position).normalized()
+	# Ray start & hit
+	var origin = global_transform.origin
 
-	# Applies physics on the object.
-	obj.apply_impulse(global_direction * move_force * throw_force)
+	var direction: Vector3
+	if is_colliding():
+		direction = (get_collision_point() - origin).normalized()
+	else:
+		# Fallback: straight ahead
+		direction = -global_transform.basis.z
+
+	obj.apply_impulse(direction * move_force * throw_force)

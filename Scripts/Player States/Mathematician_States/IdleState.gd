@@ -24,6 +24,5 @@ func process_input(event: InputEvent) -> State:
 		return self
 
 
-# Why?
 func process_physics(delta: float) -> State:
 	return self

@@ -10,6 +10,8 @@ var current_state: State
 @export var walking_state: State
 @export var running_state: State
 @export var idle_state: State
+@export var roll_state: State
+
 
 func _ready():
 	pass # Replace with function body.
@@ -25,7 +27,8 @@ func init(player) -> void:
 func terminate() -> void:
 	for child in get_children():
 		child.parent = null
-	current_state.exit()
+	if current_state != null:
+		current_state.exit()
 	current_state = null
 	
 func change_state(new_state) -> void:
