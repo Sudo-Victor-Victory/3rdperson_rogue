@@ -26,7 +26,7 @@ func process_physics(delta: float) -> State:
 		return running_state
 	if parent.global_position.distance_to(parent.player.global_position) < 20:
 		var direction = self.transform.origin
-		# This is ok
+		# Moves the enemy to the player every frame
 		parent.navigation_agent_3d.set_target_position(parent.player.global_position)
 		
 		parent.movement_delta = parent.movement_speed * delta

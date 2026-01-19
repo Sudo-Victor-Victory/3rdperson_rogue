@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://6j78jv6ujkfv"]
+
+[ext_resource type="PackedScene" uid="uid://bg6tfa1cx5sfs" path="res://Assets/models/enemy_models/KnightCharacter.fbx" id="1_34kdx"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jcjwq"]
+height = 1.6777344
+
+[node name="KnightCharacter" instance=ExtResource("1_34kdx")]
+
+[node name="HumanArmature" parent="." index="0"]
+transform = Transform3D(30, 0, 0, 0, -1.3113416e-06, 30, 0, -30, -1.3113416e-06, 0, 0, 0)
+
+[node name="Skeleton3D" parent="HumanArmature" index="0"]
+bones/1/rotation = Quaternion(-3.531076e-07, 0.6955496, 0.7184781, -2.1416145e-07)
+bones/3/position = Vector3(5.2458956e-05, 0.021271238, 0.0030771976)
+bones/3/rotation = Quaternion(0, 1.1920929e-07, 0, 1)
+bones/4/position = Vector3(-2.0504986e-05, -0.0016270041, -0.0011267168)
+bones/4/rotation = Quaternion(-0.0992135, -2.663651e-07, -4.4525557e-08, 0.9950662)
+bones/5/rotation = Quaternion(0.09682556, 4.3598718e-07, 5.995198e-08, 0.9953014)
+bones/6/rotation = Quaternion(0.048823733, -8.313397e-07, 1.0919069e-08, 0.99880743)
+bones/7/rotation = Quaternion(-0.035464294, 6.775898e-07, -2.4586204e-09, 0.99937093)
+bones/8/rotation = Quaternion(-0.002805637, -2.838181e-05, 0.0012216518, 0.99999535)
+bones/11/rotation = Quaternion(-0.62522376, -0.37934098, -0.5482059, 0.4057906)
+bones/12/rotation = Quaternion(-0.057868667, 0.03769498, -0.03560525, 0.99697673)
+bones/14/rotation = Quaternion(-0.0002362161, -0.0052727084, 0.022469752, 0.9997336)
+bones/15/rotation = Quaternion(1.841022e-10, -0.036000457, 1.0051055e-07, 0.99935186)
+bones/17/rotation = Quaternion(0.4058456, 0.86540323, -0.2933627, 0.017464537)
+bones/18/rotation = Quaternion(0.011171455, 0.9964136, 0.02769953, -0.07917074)
+bones/20/position = Vector3(-0.0032937506, 0.0036856213, -0.0007481485)
+bones/20/rotation = Quaternion(-0.041507613, 0.020797126, 0.4474805, 0.89308786)
+bones/21/rotation = Quaternion(-0.6059097, 0.40975758, 0.5238742, 0.4364953)
+bones/22/rotation = Quaternion(-0.07967603, -0.0393108, 0.039399732, 0.99526584)
+bones/23/rotation = Quaternion(-0.017759029, -0.007894544, 0.030152699, 0.9993564)
+bones/24/rotation = Quaternion(-0.00023637175, 0.0052727014, -0.022469841, 0.9997336)
+bones/25/rotation = Quaternion(-1.13443306e-07, 0.036000457, 5.2225367e-08, 0.99935186)
+bones/27/rotation = Quaternion(-0.40537295, 0.86603653, -0.29216757, -0.01707875)
+bones/28/rotation = Quaternion(-0.24281621, 0.9699859, -0.012712954, -0.0024580886)
+bones/30/rotation = Quaternion(0.9978272, 0.00061867235, 0.0030849695, 0.06581102)
+bones/30/scale = Vector3(1, 0.99999994, 0.9999786)
+bones/31/rotation = Quaternion(0.18612544, 1.7576617e-08, -3.0332366e-08, 0.98252606)
+bones/31/scale = Vector3(0.99999994, 0.99999976, 1.0000005)
+bones/33/rotation = Quaternion(0.9978251, 0.00057993975, 0.003044691, 0.06584387)
+bones/33/scale = Vector3(1, 0.99999994, 0.9999772)
+bones/34/rotation = Quaternion(0.17372674, -1.07470285e-07, 3.3010952e-08, 0.9847939)
+bones/38/rotation = Quaternion(2.9212465e-08, 0.6955496, 0.7184781, 1.5705328e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91114736, 0)
+shape = SubResource("CylinderShape3D_jcjwq")

@@ -1,0 +1,175 @@
+[gd_scene load_steps=21 format=3 uid="uid://bbv7aa3rojjur"]
+
+[ext_resource type="PackedScene" uid="uid://bg6tfa1cx5sfs" path="res://Assets/models/enemy_models/KnightCharacter.fbx" id="1_dhi1f"]
+[ext_resource type="Script" uid="uid://df0lp6rjf6vtf" path="res://Scripts/CharacterProfile.gd" id="2_g1ulf"]
+[ext_resource type="PackedScene" uid="uid://dmmiqq42q00b3" path="res://Assets/models/enemy_models/Sword.fbx" id="2_ilbof"]
+[ext_resource type="Script" uid="uid://djygpvcgm7sk0" path="res://Scripts/Player States/StateMachine.gd" id="3_i5r0n"]
+[ext_resource type="Script" uid="uid://mlc8yhl74s4v" path="res://Scripts/Player States/unnamed_player_States/Unnamed_WalkingState.gd" id="4_g1ulf"]
+[ext_resource type="Script" uid="uid://dp71uwj5k3t3v" path="res://Scripts/sword_hitbox.gd" id="4_lv1r5"]
+[ext_resource type="PackedScene" uid="uid://db1t8n2lcwjsq" path="res://Assets/models/enemy_models/Helmet1.fbx" id="4_t2lmd"]
+[ext_resource type="Script" uid="uid://f0tonc1flukk" path="res://Scripts/Player States/unnamed_player_States/Unnamed_IdleState.gd" id="5_t2lmd"]
+[ext_resource type="PackedScene" uid="uid://ddw5p21xupcfl" path="res://Assets/models/enemy_models/ShoulderPads.fbx" id="5_w6ksx"]
+[ext_resource type="Script" uid="uid://s8ybcttu4mn1" path="res://Scripts/Player States/unnamed_player_States/Unnamed_RunningState.gd" id="6_w6ksx"]
+[ext_resource type="Script" uid="uid://dblmwmdtvjne5" path="res://Scripts/unknown_roll.gd" id="10_n82xb"]
+[ext_resource type="Script" uid="uid://e8mp3y4tvd7n" path="res://Scripts/unknown_attack.gd" id="12_uxi0p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n82xb"]
+size = Vector3(3.3023682, 0.6069336, 0.66363525)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uxi0p"]
+animation = &"HumanArmature|Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_opwow"]
+animation = &"HumanArmature|Roll_sword"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wmh4b"]
+animation = &"HumanArmature|Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bpuxo"]
+animation = &"HumanArmature|Run_swordAttack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_at1ny"]
+animation = &"HumanArmature|Walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qiibp"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_uxi0p"]
+states/HumanArmature|Idle/node = SubResource("AnimationNodeAnimation_uxi0p")
+states/HumanArmature|Idle/position = Vector2(250, 100)
+states/HumanArmature|Roll_sword/node = SubResource("AnimationNodeAnimation_opwow")
+states/HumanArmature|Roll_sword/position = Vector2(394, 201)
+states/HumanArmature|Run/node = SubResource("AnimationNodeAnimation_wmh4b")
+states/HumanArmature|Run/position = Vector2(584, 141)
+states/HumanArmature|Run_swordAttack/node = SubResource("AnimationNodeAnimation_bpuxo")
+states/HumanArmature|Run_swordAttack/position = Vector2(794, 201)
+states/HumanArmature|Walking/node = SubResource("AnimationNodeAnimation_at1ny")
+states/HumanArmature|Walking/position = Vector2(600, 37)
+states/Start/position = Vector2(54, 100)
+transitions = ["Start", "HumanArmature|Idle", SubResource("AnimationNodeStateMachineTransition_qiibp")]
+
+[node name="KnightCharacter" node_paths=PackedStringArray("visuals", "fsm", "animation_player") instance=ExtResource("1_dhi1f")]
+transform = Transform3D(-0.3, 0, -4.5298744e-08, 0, 0.3, 0, 4.5298744e-08, 0, -0.3, 0, 0, 0)
+script = ExtResource("2_g1ulf")
+visuals = NodePath("HumanArmature")
+fsm = NodePath("Unnamed_StateMachine")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="HumanArmature" parent="." index="0"]
+transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4.3711384e-06, 0, 0, 0)
+
+[node name="Skeleton3D" parent="HumanArmature" index="0"]
+bones/1/rotation = Quaternion(-3.531076e-07, 0.6955496, 0.7184781, -2.1416145e-07)
+bones/3/position = Vector3(5.2458956e-05, 0.021271238, 0.0030771976)
+bones/3/rotation = Quaternion(0, 1.1920929e-07, 0, 1)
+bones/4/position = Vector3(-2.0504986e-05, -0.0016270041, -0.0011267168)
+bones/4/rotation = Quaternion(-0.0992135, -2.663651e-07, -4.4525557e-08, 0.9950662)
+bones/5/rotation = Quaternion(0.096825555, 4.3598715e-07, 5.995199e-08, 0.99530137)
+bones/6/rotation = Quaternion(0.048823733, -8.313397e-07, 1.0919069e-08, 0.99880743)
+bones/7/rotation = Quaternion(-0.035464294, 6.775898e-07, -2.4586204e-09, 0.99937093)
+bones/8/rotation = Quaternion(-0.002805637, -2.838181e-05, 0.0012216518, 0.99999535)
+bones/11/rotation = Quaternion(-0.62522376, -0.37934098, -0.5482059, 0.4057906)
+bones/12/rotation = Quaternion(-0.057868667, 0.037694987, -0.035605256, 0.99697673)
+bones/14/rotation = Quaternion(-0.000236216, -0.0052727074, 0.022469752, 0.9997336)
+bones/15/rotation = Quaternion(3.908818e-09, -0.036000457, 1.0034812e-07, 0.99935186)
+bones/17/rotation = Quaternion(0.40584525, 0.86540306, -0.2933636, 0.017465413)
+bones/18/rotation = Quaternion(0.011171455, 0.9964136, 0.027699634, -0.07917074)
+bones/20/position = Vector3(-0.0032937506, 0.0036856213, -0.0007481485)
+bones/20/rotation = Quaternion(-0.041507613, 0.020797126, 0.4474805, 0.89308786)
+bones/21/rotation = Quaternion(-0.6059097, 0.40975758, 0.5238741, 0.43649527)
+bones/22/rotation = Quaternion(-0.07967605, -0.0393108, 0.03939973, 0.99526584)
+bones/23/rotation = Quaternion(-0.017759023, -0.007894544, 0.030152699, 0.9993564)
+bones/24/rotation = Quaternion(-0.00023637549, 0.005272702, -0.022469837, 0.9997336)
+bones/25/rotation = Quaternion(-1.17180775e-07, 0.036000457, 5.2007653e-08, 0.99935186)
+bones/27/rotation = Quaternion(-0.40537268, 0.86603665, -0.2921674, -0.017080551)
+bones/28/rotation = Quaternion(-0.24281617, 0.9699859, -0.012712951, -0.0024580895)
+bones/30/rotation = Quaternion(0.99782723, 0.0006186724, 0.0030849697, 0.06581104)
+bones/30/scale = Vector3(1, 0.99999994, 0.9999786)
+bones/31/rotation = Quaternion(0.18612544, 1.7576617e-08, -3.0332366e-08, 0.98252606)
+bones/31/scale = Vector3(0.99999994, 0.99999976, 1.0000005)
+bones/33/rotation = Quaternion(0.9978251, 0.00057993975, 0.003044691, 0.06584387)
+bones/33/scale = Vector3(1, 0.99999994, 0.9999772)
+bones/34/rotation = Quaternion(0.17372674, -1.07470285e-07, 3.3010952e-08, 0.9847939)
+bones/38/rotation = Quaternion(2.9212465e-08, 0.6955496, 0.7184781, 1.5705328e-07)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="HumanArmature/Skeleton3D" index="1"]
+transform = Transform3D(-0.022764347, -0.15957464, -0.9869236, 0.99886507, -0.044930436, -0.015775131, -0.041825593, -0.98616254, 0.16041622, -0.011826427, 0.0023240743, 0.016874216)
+bone_name = "Palm.R"
+bone_idx = 23
+
+[node name="Sword" parent="HumanArmature/Skeleton3D/BoneAttachment3D" index="0" instance=ExtResource("2_ilbof")]
+transform = Transform3D(0.00049416744, -0.009985298, -0.00022312612, 0.009890872, 0.00052029593, -0.0013783515, -0.0013879332, 0.00015257842, -0.009902037, -0.0015270393, 0.0010917252, -0.00017880276)
+
+[node name="SwordHitbox" type="Area3D" parent="HumanArmature/Skeleton3D/BoneAttachment3D" index="1" groups=["meele"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_lv1r5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HumanArmature/Skeleton3D/BoneAttachment3D/SwordHitbox" index="0"]
+transform = Transform3D(0.009988293, 0.00046737018, -7.5303935e-05, -0.0004672571, 0.009989038, 1.25572105e-05, 7.581647e-05, -9.008567e-06, 0.009999712, -0.024370626, 0.001970618, 0.00040653907)
+shape = SubResource("BoxShape3D_n82xb")
+
+[node name="BoneAttachment3D2" type="BoneAttachment3D" parent="HumanArmature/Skeleton3D" index="2"]
+transform = Transform3D(0.999997, -0.0024431366, -6.287103e-05, -0.000102763894, -0.016331853, -0.9998662, 0.0024417832, 0.9998631, -0.016332028, -3.110878e-05, -0.0001009452, 0.05395002)
+bone_name = "Head_end"
+bone_idx = 9
+
+[node name="Helmet1" parent="HumanArmature/Skeleton3D/BoneAttachment3D2" index="0" instance=ExtResource("4_t2lmd")]
+transform = Transform3D(0.01, -5.997769e-11, -2.3337374e-10, 5.997768e-11, 0.01, -1.455191e-10, 2.3337374e-10, 1.455191e-10, 0.01, 0.00068510213, -0.004214097, -0.001642535)
+
+[node name="BoneAttachment3D3" type="BoneAttachment3D" parent="HumanArmature/Skeleton3D" index="3"]
+transform = Transform3D(1, 7.81597e-14, -6.086892e-07, -6.060652e-07, -0.09275391, -0.99568874, -5.645833e-08, 0.9956886, -0.09275387, 9.445944e-13, 0.00081365573, 0.031148175)
+bone_name = "Torso"
+bone_idx = 6
+
+[node name="ShoulderPads" parent="HumanArmature/Skeleton3D/BoneAttachment3D3" index="0" instance=ExtResource("5_w6ksx")]
+transform = Transform3D(0.009, 5.953056e-11, 9.5248885e-11, -5.953056e-11, 0.009, 4.7624443e-11, -9.5248885e-11, -4.7624443e-11, 0.009, 0.0005185796, 0.008347405, -0.00082482863)
+
+[node name="AnimationPlayer" parent="." index="1"]
+speed_scale = 1.5
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeStateMachine_uxi0p")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Unnamed_StateMachine" type="Node3D" parent="." index="3" node_paths=PackedStringArray("starting_state", "walking_state", "running_state", "idle_state", "roll_state")]
+script = ExtResource("3_i5r0n")
+starting_state = NodePath("Unnamed_Idle")
+walking_state = NodePath("Unnamed_Walking")
+running_state = NodePath("Unnamed_Running")
+idle_state = NodePath("Unnamed_Idle")
+roll_state = NodePath("Unknown_Roll")
+
+[node name="Unnamed_Walking" type="Node3D" parent="Unnamed_StateMachine" index="0" node_paths=PackedStringArray("idle_state", "running_state", "roll_state")]
+script = ExtResource("4_g1ulf")
+idle_state = NodePath("../Unnamed_Idle")
+running_state = NodePath("../Unnamed_Running")
+roll_state = NodePath("../Unknown_Roll")
+animation_name = "HumanArmature|Walking"
+
+[node name="Unnamed_Idle" type="Node3D" parent="Unnamed_StateMachine" index="1" node_paths=PackedStringArray("walking_state", "running_state", "attack_state")]
+script = ExtResource("5_t2lmd")
+walking_state = NodePath("../Unnamed_Walking")
+running_state = NodePath("../Unnamed_Running")
+attack_state = NodePath("../Unknown_Attack")
+animation_name = "HumanArmature|Idle"
+
+[node name="Unnamed_Running" type="Node3D" parent="Unnamed_StateMachine" index="2" node_paths=PackedStringArray("walking_state", "idle_state")]
+script = ExtResource("6_w6ksx")
+walking_state = NodePath("../Unnamed_Walking")
+idle_state = NodePath("../Unnamed_Idle")
+animation_name = "HumanArmature|Run"
+
+[node name="Unknown_Roll" type="Node3D" parent="Unnamed_StateMachine" index="3" node_paths=PackedStringArray("idle_state", "walking_state", "running_state")]
+script = ExtResource("10_n82xb")
+idle_state = NodePath("../Unnamed_Idle")
+walking_state = NodePath("../Unnamed_Walking")
+running_state = NodePath("../Unnamed_Running")
+animation_name = "HumanArmature|Roll_sword"
+
+[node name="Unknown_Attack" type="Node3D" parent="Unnamed_StateMachine" index="4" node_paths=PackedStringArray("idle_state", "walking_state", "running_state")]
+script = ExtResource("12_uxi0p")
+idle_state = NodePath("../Unnamed_Idle")
+walking_state = NodePath("../Unnamed_Walking")
+running_state = NodePath("../Unnamed_Running")
+animation_name = "HumanArmature|Run_swordAttack"

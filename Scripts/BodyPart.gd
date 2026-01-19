@@ -1,21 +1,33 @@
 extends Area3D
 
-signal body_part_hit(damage)
-@export var damage := 1
+signal body_part_hit(damage: int)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	body_entered.connect(hit) 
+@export var damage_multiplier := 1.0
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _ready() -> void:
+	body_entered.connect(_on_body_entered)
+	area_entered.connect(_on_area_entered)
 
 
-func hit(body):
-	if body.is_in_group("projectiles") && body.can_hurt_enemy == true:
-		# Calls _on_area_3d_body_part_hit in Enemy.gd
-		body_part_hit.emit(damage)
-		# Once the projectile hits the enemy we do not track damage.
-		body.can_hurt_enemy = false
+func _on_body_entered(body: Node) -> void:
+	_process_damage_source(body)
 
+
+func _on_area_entered(area: Area3D) -> void:
+	_process_damage_source(area)
+
+
+func _process_damage_source(source: Node) -> void:
+	# Must explicitly allow damage
+	if not source.has_meta("can_hurt_enemy") || source.get_meta("can_hurt_enemy") != true:
+		return
+
+	#  Godot 4–correct variable check
+	if not ("damage" in source):
+		return
+
+	var final_damage := int(source.damage * damage_multiplier)
+	body_part_hit.emit(final_damage)
+
+	# Prevent multi-hit from same source
+	source.set_meta("can_hurt_enemy", false)
