@@ -10,7 +10,6 @@ var current_state: State
 @export var walking_state: State
 @export var running_state: State
 @export var idle_state: State
-@export var roll_state: State
 
 
 func _ready():
