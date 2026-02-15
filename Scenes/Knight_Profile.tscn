@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bbv7aa3rojjur"]
+[gd_scene load_steps=22 format=3 uid="uid://bbv7aa3rojjur"]
 
 [ext_resource type="PackedScene" uid="uid://bg6tfa1cx5sfs" path="res://Assets/models/enemy_models/KnightCharacter.fbx" id="1_dhi1f"]
 [ext_resource type="Script" uid="uid://df0lp6rjf6vtf" path="res://Scripts/CharacterProfile.gd" id="2_g1ulf"]
@@ -9,9 +9,10 @@
 [ext_resource type="Script" uid="uid://djygpvcgm7sk0" path="res://Scripts/Player States and Abilities/StateMachine.gd" id="7_uxi0p"]
 [ext_resource type="Script" uid="uid://mlc8yhl74s4v" path="res://Scripts/Player States and Abilities/Knight/Knight States/Knight_WalkingState.gd" id="8_uxi0p"]
 [ext_resource type="Script" uid="uid://f0tonc1flukk" path="res://Scripts/Player States and Abilities/Knight/Knight States/Knight_IdleState.gd" id="9_uxi0p"]
-[ext_resource type="Script" uid="uid://dblmwmdtvjne5" path="res://Scripts/Player States and Abilities/Knight/Knight Abilities/Knight_roll.gd" id="10_n82xb"]
 [ext_resource type="Script" uid="uid://u8c05rrppmv" path="res://Scripts/Player States and Abilities/Mathematician_States/RunningState.gd" id="10_uxi0p"]
-[ext_resource type="Script" uid="uid://e8mp3y4tvd7n" path="res://Scripts/Player States and Abilities/Knight/Knight Abilities/Knight_primary.gd" id="12_uxi0p"]
+[ext_resource type="Script" uid="uid://c8wyy8f1qb8xt" path="res://Scenes/AbilityController.gd" id="13_opwow"]
+[ext_resource type="Script" uid="uid://cgqaubfyrjq5f" path="res://Scripts/Player States and Abilities/Knight/Knight Abilities/Knight_Primary_Ability.gd" id="14_bpuxo"]
+[ext_resource type="Script" uid="uid://vyg0inbb0ek5" path="res://Scripts/Player States and Abilities/Knight/Knight Abilities/Knight_Secondary_Ability.gd" id="15_wmh4b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n82xb"]
 size = Vector3(3.3023682, 0.6069336, 0.66363525)
@@ -139,18 +140,16 @@ walking_state = NodePath("Knight_Walking")
 running_state = NodePath("Knight_Running")
 idle_state = NodePath("Knight_Idle")
 
-[node name="Knight_Walking" type="Node3D" parent="Knight_StateMachine" index="0" node_paths=PackedStringArray("idle_state", "running_state", "roll_state")]
+[node name="Knight_Walking" type="Node3D" parent="Knight_StateMachine" index="0" node_paths=PackedStringArray("idle_state", "running_state")]
 script = ExtResource("8_uxi0p")
 idle_state = NodePath("../Knight_Idle")
 running_state = NodePath("../Knight_Running")
-roll_state = NodePath("../Knight_Roll")
 animation_name = "HumanArmature|Walking"
 
-[node name="Knight_Idle" type="Node3D" parent="Knight_StateMachine" index="1" node_paths=PackedStringArray("walking_state", "running_state", "attack_state")]
+[node name="Knight_Idle" type="Node3D" parent="Knight_StateMachine" index="1" node_paths=PackedStringArray("walking_state", "running_state")]
 script = ExtResource("9_uxi0p")
 walking_state = NodePath("../Knight_Walking")
 running_state = NodePath("../Knight_Running")
-attack_state = NodePath("../Knight_Attack")
 animation_name = "HumanArmature|Idle"
 
 [node name="Knight_Running" type="Node3D" parent="Knight_StateMachine" index="2" node_paths=PackedStringArray("walking_state", "idle_state")]
@@ -159,16 +158,14 @@ walking_state = NodePath("../Knight_Walking")
 idle_state = NodePath("../Knight_Idle")
 animation_name = "HumanArmature|Run"
 
-[node name="Knight_Roll" type="Node3D" parent="Knight_StateMachine" index="3" node_paths=PackedStringArray("idle_state", "walking_state", "running_state")]
-script = ExtResource("10_n82xb")
-idle_state = NodePath("../Knight_Idle")
-walking_state = NodePath("../Knight_Walking")
-running_state = NodePath("../Knight_Running")
-animation_name = "HumanArmature|Roll_sword"
+[node name="AbilityController" type="Node3D" parent="." index="4" node_paths=PackedStringArray("primary_ability", "secondary_ability")]
+script = ExtResource("13_opwow")
+primary_ability = NodePath("PrimaryAbility")
+secondary_ability = NodePath("SecondaryAbility")
 
-[node name="Knight_Attack" type="Node3D" parent="Knight_StateMachine" index="4" node_paths=PackedStringArray("idle_state", "walking_state", "running_state")]
-script = ExtResource("12_uxi0p")
-idle_state = NodePath("../Knight_Idle")
-walking_state = NodePath("../Knight_Walking")
-running_state = NodePath("../Knight_Running")
-animation_name = "HumanArmature|Run_swordAttack"
+[node name="PrimaryAbility" type="Node3D" parent="AbilityController" index="0" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("14_bpuxo")
+hitbox = NodePath("../../HumanArmature/Skeleton3D/BoneAttachment3D/SwordHitbox")
+
+[node name="SecondaryAbility" type="Node3D" parent="AbilityController" index="1"]
+script = ExtResource("15_wmh4b")

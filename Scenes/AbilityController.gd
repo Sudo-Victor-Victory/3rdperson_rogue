@@ -6,15 +6,15 @@ extends Node
 
 var owner_character
 
-func setup(owner):
+func setup(owner, aim, interact):
 	owner_character = owner
 	
 	if primary_ability:
-		primary_ability.setup(owner_character)
+		primary_ability.setup(owner, aim, interact)
 	if secondary_ability:
-		secondary_ability.setup(owner_character)
+		secondary_ability.setup(owner, aim, interact)
 
-func process_input(event: InputEvent):
+func process_input(event):
 	if primary_ability:
 		primary_ability.process_input(event)
 	if secondary_ability:

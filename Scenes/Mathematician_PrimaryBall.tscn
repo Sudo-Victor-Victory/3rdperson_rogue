@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://buqggd80oiucv"]
+
+[ext_resource type="Script" uid="uid://db8dngvvy265r" path="res://Scripts/ThrownObject.gd" id="1_6xe3c"]
+[ext_resource type="Texture2D" uid="uid://bn8wfhbs1omgo" path="res://Assets/textures/grids/Dark/texture_08.png" id="2_i4drt"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6xe3c"]
+radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4drt"]
+albedo_texture = ExtResource("2_i4drt")
+
+[sub_resource type="SphereMesh" id="SphereMesh_wqnnm"]
+
+[node name="PrimaryBall" type="RigidBody3D" groups=["projectiles"]]
+visible = false
+collision_layer = 3
+collision_mask = 3
+freeze = true
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_6xe3c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_6xe3c")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_i4drt")
+mesh = SubResource("SphereMesh_wqnnm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
