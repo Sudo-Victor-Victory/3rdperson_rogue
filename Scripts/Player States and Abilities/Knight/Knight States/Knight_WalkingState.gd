@@ -2,10 +2,13 @@ extends State
 
 @export var idle_state : State
 @export var running_state : State
+@export var movement_state : State
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_pressed("run"):
 		return running_state
+	if Input.is_action_pressed("movement_key"):
+		return movement_state
 	return self
 
 

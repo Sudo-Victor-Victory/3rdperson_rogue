@@ -71,7 +71,6 @@ func _process(delta):
 		hold_counter = 0.0
 		primary_fire = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta) -> void:
 	if secondary_pickup:
 		if !(throwable is RigidBody3D):

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://j853ph23ii8k"]
+
+[ext_resource type="Script" uid="uid://cqlgljl7q7ura" path="res://SliceObject.gd" id="1_ixf5j"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ixf5j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6xpm6"]
+
+[node name="SliceObject" type="Node3D"]
+script = ExtResource("1_ixf5j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ixf5j")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_6xpm6")

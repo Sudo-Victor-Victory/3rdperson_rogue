@@ -1,0 +1,85 @@
+[gd_scene load_steps=14 format=3 uid="uid://0n5ytag5wm2t"]
+
+[ext_resource type="Texture2D" uid="uid://bryvqumhl8402" path="res://Assets/textures/materials/Floor_Mosaic_01_metallic.jpg" id="1_yq4yk"]
+[ext_resource type="PackedScene" uid="uid://bwfr2ynb2sisy" path="res://Scenes/enemy.tscn" id="2_pu8o7"]
+[ext_resource type="Script" uid="uid://bhjepqw7j4kmr" path="res://Scripts/level_manager.gd" id="3_ok5u4"]
+[ext_resource type="PackedScene" uid="uid://cqnl34fkw0fno" path="res://Scenes/player.tscn" id="4_pu8o7"]
+[ext_resource type="PackedScene" uid="uid://dysv7j13jqy6g" path="res://Scenes/hud.tscn" id="5_ok5u4"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_8wtdv"]
+vertices = PackedVector3Array(-49.5, 1, -49.5, -49.5, 1, 49.5, 49.5, 1, 49.5, 49.5, 1, -49.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+agent_height = 2.0
+agent_max_climb = 5.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xrrax"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lv8wu"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6cxfm"]
+albedo_texture = ExtResource("1_yq4yk")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_gmjnj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c6tek"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_5ki63"]
+sky_material = SubResource("ProceduralSkyMaterial_c6tek")
+
+[sub_resource type="Environment" id="Environment_k83cj"]
+background_mode = 2
+sky = SubResource("Sky_5ki63")
+tonemap_mode = 2
+sdfgi_enabled = true
+fog_enabled = true
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_8wtdv")
+
+[node name="Platform" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Platform"]
+physics_material_override = SubResource("PhysicsMaterial_xrrax")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Platform/StaticBody3D"]
+shape = SubResource("BoxShape3D_lv8wu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Platform"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_6cxfm")
+mesh = SubResource("BoxMesh_gmjnj")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k83cj")
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+
+[node name="PlayerSpawn" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8742603, -4.134877)
+
+[node name="EnemySpawn1" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.082751, 0.86128163, 0)
+
+[node name="EnemySpawn2" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42492223, 2.0736182)
+
+[node name="EnemySpawn3" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78252006, 0.31735957, 0)
+
+[node name="LevelManager" type="Node3D" parent="."]
+script = ExtResource("3_ok5u4")
+player_scene = ExtResource("4_pu8o7")
+enemy_scene = ExtResource("2_pu8o7")
+
+[node name="Hud" parent="." instance=ExtResource("5_ok5u4")]

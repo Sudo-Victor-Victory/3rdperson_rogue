@@ -1,0 +1,134 @@
+[gd_scene load_steps=12 format=3 uid="uid://blr8b0000qjii"]
+
+[ext_resource type="PackedScene" uid="uid://cygeectapqgnw" path="res://Assets/models/player_models/BlueSoldier_Male.fbx" id="1_tw2st"]
+[ext_resource type="Script" uid="uid://df0lp6rjf6vtf" path="res://Scripts/CharacterProfile.gd" id="2_ekpwr"]
+[ext_resource type="Script" uid="uid://djygpvcgm7sk0" path="res://Scripts/Player States and Abilities/StateMachine.gd" id="2_lc0w1"]
+[ext_resource type="Script" uid="uid://ceb21yde0r6a8" path="res://Scripts/Player States and Abilities/Gunner/Gunner_walking.gd" id="3_ddjyl"]
+[ext_resource type="Script" uid="uid://cofl7wwegcaxa" path="res://Scripts/Player States and Abilities/Gun.gd" id="3_iqnm2"]
+[ext_resource type="PackedScene" uid="uid://b5pwjtsspdgdo" path="res://Assets/models/player_models/Pistol.fbx" id="3_wnsm5"]
+[ext_resource type="Script" uid="uid://bg0pckg53aiie" path="res://Scripts/Player States and Abilities/Gunner/Gunner_Running.gd" id="4_ddjyl"]
+[ext_resource type="Script" uid="uid://bcix28122ltj1" path="res://Scripts/Player States and Abilities/Gunner/Gunner_idle.gd" id="5_isxc4"]
+[ext_resource type="Script" uid="uid://c8wyy8f1qb8xt" path="res://Scenes/AbilityController.gd" id="7_ijd6l"]
+[ext_resource type="Script" uid="uid://c6x8q0ajosm10" path="res://Scripts/Player States and Abilities/Gunner/Gunner_SecondaryAbility.gd" id="8_clvar"]
+[ext_resource type="PackedScene" uid="uid://ceauqc5qvelyu" path="res://Scenes/Bullet.tscn" id="9_bw0qg"]
+
+[node name="BlueSoldier_Male" node_paths=PackedStringArray("visuals", "fsm", "animation_player") instance=ExtResource("1_tw2st")]
+transform = Transform3D(-0.55, 0, -8.3047695e-08, 0, 0.55, 0, 8.3047695e-08, 0, -0.55, 0, 0, 0)
+script = ExtResource("2_ekpwr")
+visuals = NodePath("CharacterArmature")
+fsm = NodePath("StateMachine")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="Skeleton3D" parent="CharacterArmature" index="0"]
+bones/1/rotation = Quaternion(5.2050214e-06, 0.7029519, 0.71123743, 5.339949e-06)
+bones/3/position = Vector3(2.15305e-05, 0.010166886, 0.00019310653)
+bones/3/rotation = Quaternion(-4.5474704e-15, 1.1920935e-07, 1.6263021e-21, 1)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/position = Vector3(-1.4799348e-05, -0.00066774903, -0.00046242264)
+bones/4/rotation = Quaternion(-0.050768834, -2.6746068e-07, -2.276434e-08, 0.99871045)
+bones/4/scale = Vector3(1, 1.0000001, 1.0000001)
+bones/5/position = Vector3(-1.7910535e-13, 0.0031433774, -2.4458377e-10)
+bones/5/rotation = Quaternion(0.074633785, 4.3671048e-07, 4.6180162e-08, 0.9972111)
+bones/5/scale = Vector3(1, 0.99999994, 0.9999998)
+bones/6/position = Vector3(2.9824962e-16, 0.0029857857, -2.5135227e-10)
+bones/6/rotation = Quaternion(0.082718566, -8.293332e-07, 1.8530821e-08, 0.99657303)
+bones/6/scale = Vector3(1, 0.9999999, 0.99999994)
+bones/7/position = Vector3(2.8778478e-15, 0.0047689094, 3.0372373e-12)
+bones/7/rotation = Quaternion(-0.03199228, 2.4094783e-05, 0.00013921197, 0.9994882)
+bones/7/scale = Vector3(1, 0.9999999, 1.0000001)
+bones/8/position = Vector3(-2.0109128e-14, 0.0013349763, 9.90966e-12)
+bones/8/rotation = Quaternion(-0.115399174, 0.00014948823, 5.673141e-06, 0.9933193)
+bones/8/scale = Vector3(0.99999994, 1, 0.9999999)
+bones/10/position = Vector3(0.0012610285, 0.0014133924, 0.00013457653)
+bones/10/rotation = Quaternion(-0.03044787, -0.013681878, -0.4096798, 0.9116185)
+bones/10/scale = Vector3(1, 1, 0.99999994)
+bones/11/position = Vector3(-1.3939072e-09, 0.0025953185, 1.1425688e-10)
+bones/11/rotation = Quaternion(-0.5027214, -0.40109086, -0.6061569, 0.46794367)
+bones/11/scale = Vector3(0.99999994, 0.99999976, 0.9999999)
+bones/12/position = Vector3(-1.8673005e-10, 0.005282711, -3.183957e-09)
+bones/12/rotation = Quaternion(-0.19371848, -0.074228995, -0.29744986, 0.93192637)
+bones/12/scale = Vector3(0.99999994, 0.9999999, 1)
+bones/13/position = Vector3(-2.9716715e-11, 0.004253473, 1.130512e-09)
+bones/13/rotation = Quaternion(0.011638851, 0.12740004, -0.008954767, 0.99174273)
+bones/13/scale = Vector3(1.0000001, 0.99999994, 1.0000001)
+bones/15/position = Vector3(-0.0012482607, 0.0014133921, 0.00013457809)
+bones/15/rotation = Quaternion(-0.030447625, 0.0136824325, 0.4096798, 0.9116185)
+bones/15/scale = Vector3(1.0000001, 1, 0.99999994)
+bones/16/position = Vector3(3.1681158e-09, 0.0025953187, 1.102545e-10)
+bones/16/rotation = Quaternion(-0.5361397, 0.41733494, 0.6009514, 0.4210027)
+bones/16/scale = Vector3(1.0000001, 1, 0.9999999)
+bones/17/position = Vector3(7.6535056e-11, 0.0052827112, -2.715914e-09)
+bones/17/rotation = Quaternion(-0.19676882, -0.036595028, 0.056219056, 0.9781525)
+bones/17/scale = Vector3(0.99999994, 0.9999999, 1)
+bones/18/position = Vector3(2.0448299e-10, 0.004253472, 1.1493384e-09)
+bones/18/rotation = Quaternion(0.012537905, -0.018195199, 0.006543079, 0.9997345)
+bones/18/scale = Vector3(1, 0.99999994, 1.0000001)
+bones/20/position = Vector3(0.0025298598, -0.00030904307, -0.0006464549)
+bones/20/rotation = Quaternion(0.98758477, 0.011872355, 0.006125644, 0.15651777)
+bones/20/scale = Vector3(0.9999984, 0.99999535, 0.9999522)
+bones/21/position = Vector3(-2.0280072e-10, 0.0045380495, 1.3813588e-10)
+bones/21/rotation = Quaternion(0.35100847, 0.0037388094, 0.009091153, 0.9363207)
+bones/21/scale = Vector3(1.0000007, 1.0000155, 1.0000083)
+bones/23/position = Vector3(-0.002547146, -0.0007623481, -0.00056539)
+bones/23/rotation = Quaternion(0.97820914, -0.006284032, 0.0012293614, 0.20752357)
+bones/23/scale = Vector3(0.999998, 0.9999919, 0.99995613)
+bones/24/position = Vector3(4.975121e-10, 0.0045380495, 1.9322614e-10)
+bones/24/rotation = Quaternion(0.45323598, -0.004729307, -0.008617478, 0.8913364)
+bones/24/scale = Vector3(1.0000008, 1.0000246, 1.0000039)
+bones/26/position = Vector3(0.002619937, 0.0010974836, 0.018516367)
+bones/26/rotation = Quaternion(-3.552703e-15, 1.1920937e-07, 2.524355e-29, 1)
+bones/26/scale = Vector3(1, 1, 1)
+bones/28/rotation = Quaternion(-5.60106e-06, 0.7029519, 0.71123743, -4.948525e-06)
+bones/30/position = Vector3(-0.002593738, 0.0010974836, 0.018516364)
+bones/30/rotation = Quaternion(-3.5527234e-15, -5.960465e-07, 1.6940652e-21, 1)
+bones/30/scale = Vector3(1, 1, 1)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="CharacterArmature/Skeleton3D" index="1"]
+transform = Transform3D(-0.2217523, -0.03671342, -0.9744118, 0.97478366, 0.017220523, -0.2224857, 0.024948109, -0.99917716, 0.031968962, -0.0055317534, 0.00040216057, 0.006796923)
+bone_name = "Fist.R_end"
+bone_idx = 19
+
+[node name="Pistol" type="Node3D" parent="CharacterArmature/Skeleton3D/BoneAttachment3D" index="0" groups=["Gun"]]
+script = ExtResource("3_iqnm2")
+shoot_animation = "CharacterArmature|Shoot_OneHanded"
+bullet_scene = ExtResource("9_bw0qg")
+shoot_anim_name = "PistolArmature|Shoot"
+reload_anim_name = "PistolArmature|Reload"
+
+[node name="Pistol" parent="CharacterArmature/Skeleton3D/BoneAttachment3D/Pistol" index="0" instance=ExtResource("3_wnsm5")]
+transform = Transform3D(1.4182191e-05, -0.00020182614, 0.0009793183, 0.000999749, 1.9850959e-05, -1.0387008e-05, -1.7344166e-05, 0.0009792196, 0.00020205694, -0.000291307, 0.0020796407, 0.0018688254)
+
+[node name="AnimationPlayer" parent="." index="1"]
+root_motion_track = NodePath("CharacterArmature/Skeleton3D:Body")
+root_motion_local = true
+
+[node name="StateMachine" type="Node3D" parent="." index="2" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_lc0w1")
+starting_state = NodePath("Idle")
+
+[node name="Walking" type="Node3D" parent="StateMachine" index="0" node_paths=PackedStringArray("idle_state", "running_state")]
+script = ExtResource("3_ddjyl")
+idle_state = NodePath("../Idle")
+running_state = NodePath("../Running")
+animation_name = "CharacterArmature|Walk"
+
+[node name="Running" type="Node3D" parent="StateMachine" index="1" node_paths=PackedStringArray("walking_state", "idle_state")]
+script = ExtResource("4_ddjyl")
+walking_state = NodePath("../Walking")
+idle_state = NodePath("../Idle")
+animation_name = "CharacterArmature|Run"
+
+[node name="Idle" type="Node3D" parent="StateMachine" index="2" node_paths=PackedStringArray("walking_state", "running_state")]
+script = ExtResource("5_isxc4")
+walking_state = NodePath("../Walking")
+running_state = NodePath("../Running")
+animation_name = "CharacterArmature|Idle"
+
+[node name="AbilityController" type="Node3D" parent="." index="3" node_paths=PackedStringArray("secondary_ability")]
+script = ExtResource("7_ijd6l")
+secondary_ability = NodePath("Gunner_Secondary")
+
+[node name="Gunner_Primary" type="Node3D" parent="AbilityController" index="0"]
+
+[node name="Gunner_Secondary" type="Node3D" parent="AbilityController" index="1"]
+script = ExtResource("8_clvar")

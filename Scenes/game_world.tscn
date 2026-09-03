@@ -1,6 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://bjtixn0gfto0w"]
+[gd_scene load_steps=33 format=3 uid="uid://bjtixn0gfto0w"]
 
 [ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://Assets/textures/grids/Green/texture_01.png" id="2_4tat1"]
+[ext_resource type="Script" uid="uid://db8dngvvy265r" path="res://Scripts/ThrownObject.gd" id="2_g7kif"]
 [ext_resource type="Texture2D" uid="uid://6o3hwigx2swq" path="res://Assets/textures/grids/Orange/texture_06.png" id="3_c1prp"]
 [ext_resource type="Texture2D" uid="uid://svp317oq35y5" path="res://Assets/textures/grids/Red/texture_03.png" id="3_dfgtt"]
 [ext_resource type="PackedScene" uid="uid://bwfr2ynb2sisy" path="res://Scenes/enemy.tscn" id="5_jnnpq"]
@@ -13,17 +14,18 @@
 [ext_resource type="PackedScene" uid="uid://cx88anqvtndu3" path="res://Scenes/Large_Rock.tscn" id="11_bwqis"]
 [ext_resource type="PackedScene" uid="uid://c4txk5utmpr4u" path="res://Scenes/Monorail_Box.tscn" id="12_1vppt"]
 [ext_resource type="PackedScene" uid="uid://cgcdjxh5kuvmg" path="res://Scenes/Monorail_end.tscn" id="13_784ae"]
+[ext_resource type="PackedScene" uid="uid://cfjpg4hli1mep" path="res://Scenes/Target.tscn" id="14_5qvjo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_76kw0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_5ki63"]
+[sub_resource type="Sky" id="Sky_g7kif"]
 sky_material = SubResource("ProceduralSkyMaterial_76kw0")
 
 [sub_resource type="Environment" id="Environment_ljsrq"]
 background_mode = 2
-sky = SubResource("Sky_5ki63")
+sky = SubResource("Sky_g7kif")
 tonemap_mode = 2
 sdfgi_enabled = true
 fog_enabled = true
@@ -93,6 +95,7 @@ collision_mask = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 3
 collision_mask = 3
+script = ExtResource("2_g7kif")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box 1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -148,7 +151,7 @@ material_override = SubResource("StandardMaterial3D_hhuf1")
 mesh = SubResource("BoxMesh_nsuhc")
 
 [node name="Enemy" parent="NavigationRegion3D" instance=ExtResource("5_jnnpq")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -5.31664, 1.89717, -15.1108)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.31664, 1.89717, -15.1108)
 
 [node name="hangar_largeB2" parent="." instance=ExtResource("7_6qx8u")]
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 15.378, 0.5, -8.71932)
@@ -226,5 +229,11 @@ collision_mask = 3
 transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 4.92954, 0.588445, 25.9449)
 collision_layer = 3
 collision_mask = 3
+
+[node name="Target" parent="." instance=ExtResource("14_5qvjo")]
+transform = Transform3D(0.84243447, -0.1342629, -0.52180237, 0.11414116, 0.99094576, -0.07069883, 0.5265701, 0, 0.85013175, 12.682617, 4.0736594, 21.460789)
+
+[node name="Target2" parent="." instance=ExtResource("14_5qvjo")]
+transform = Transform3D(-0.7911489, 0, -0.6116237, 0, 1, 0, 0.6116237, 0, -0.7911489, -3.106376, 6.305821, 26.403778)
 
 [connection signal="body_entered" from="Box 3" to="Player" method="_on_box_3_body_entered"]

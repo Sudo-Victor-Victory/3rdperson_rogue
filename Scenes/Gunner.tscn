@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cltds7t0qhlld"]
+
+[ext_resource type="PackedScene" uid="uid://blr8b0000qjii" path="res://Scenes/GunnerProfile.tscn" id="1_lk2r2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lk2r2"]
+radius = 0.70947266
+height = 3.6272655
+
+[node name="Gunner" type="CharacterBody3D"]
+
+[node name="BlueSoldier_Male" parent="." instance=ExtResource("1_lk2r2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1223855, 0, -0.06496096)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12589431, 1.4538583, 0)
+shape = SubResource("CapsuleShape3D_lk2r2")

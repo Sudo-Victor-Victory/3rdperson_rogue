@@ -1,16 +1,16 @@
+# State.gd
 class_name State
 extends Node
 
 @export var animation_name: String
 
-var parent  # Player reference
+var parent  # reference to Player or Enemy
 
 func enter():
 	if animation_name != "":
-		parent.play_anim(animation_name)
+		if parent.has_method("play_anim"):
+			parent.play_anim(animation_name)
 
-	else:
-		push_error("State entered with empty animation_name")
 func exit():
 	pass
 

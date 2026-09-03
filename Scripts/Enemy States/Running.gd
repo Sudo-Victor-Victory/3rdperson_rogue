@@ -1,35 +1,33 @@
 extends State
 
-@export var walking_state : State
-@export var idle_state : State
-@export var attack_state : State
+@export var walking_state: State
+@export var idle_state: State
+@export var attack_state: State
 
 func enter() -> void:
 	super()
-	parent.movement_speed =  5
-
-
-func exit() -> void:
-	parent.movement_speed = 3.5
-	
-
 
 func process_physics(delta: float) -> State:
-	# Look into method to D.R.Y.
-	if parent.global_position.distance_to(parent.player.global_position) < parent.ATTACK_RANGE:
+
+	var dist = parent.global_position.distance_to(parent.player.global_position)
+
+	if dist < parent.ATTACK_RANGE:
 		return attack_state
-	if parent.global_position.distance_to(parent.player.global_position) < 10:
-		var direction = self.transform.origin
-		parent.navigation_agent_3d.set_target_position(parent.player.global_position)
-		
-		parent.movement_delta = parent.movement_speed * delta
-		var next_path_position  = parent.navigation_agent_3d.get_next_path_position()
-		var new_velocity  = parent.global_position.direction_to(next_path_position) * parent.movement_delta
-		parent.global_position = parent.global_position.move_toward(parent.global_position + new_velocity, parent.movement_delta)
-		parent.move_and_slide()
-		return self
-	if parent.global_position.distance_to(parent.player.global_position) < 20:
-		return walking_state
-	else:
+
+	# WALK THRESHOLD (upper bound = 12)
+	if dist > 22:
 		return idle_state
-	
+
+	if dist > 12:
+		return walking_state
+
+	# RUN movement
+	parent.navigation_agent_3d.set_target_position(parent.player.global_position)
+
+	var next_pos = parent.navigation_agent_3d.get_next_path_position()
+	var dir = parent.global_position.direction_to(next_pos)
+
+	parent.move_direction = dir.normalized()
+	parent.move_speed = parent.movement_speed * 1.3
+
+	return self

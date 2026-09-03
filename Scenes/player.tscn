@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqnl34fkw0fno"]
+[gd_scene load_steps=9 format=3 uid="uid://cqnl34fkw0fno"]
 
 [ext_resource type="Script" uid="uid://p2jj44e5pvj1" path="res://Scripts/player.gd" id="1_nqhyy"]
 [ext_resource type="PackedScene" uid="uid://cwnt5witon00p" path="res://Scenes/CharacterProfile.tscn" id="2_wn2dj"]
 [ext_resource type="PackedScene" uid="uid://bbv7aa3rojjur" path="res://Scenes/Knight_Profile.tscn" id="3_x3wgy"]
+[ext_resource type="PackedScene" uid="uid://blr8b0000qjii" path="res://Scenes/GunnerProfile.tscn" id="4_x3wgy"]
 [ext_resource type="Script" uid="uid://gsvwxrtqirh2" path="res://Scripts/AimRay.gd" id="5_3smsa"]
 [ext_resource type="Script" uid="uid://db6fb5bbuikgh" path="res://Scripts/InteractRay.gd" id="5_fkybt"]
+[ext_resource type="Script" uid="uid://bhxu55v567lj" path="res://Scripts/HealthComponent.gd" id="7_3smsa"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mnx35"]
 radius = 0.3
@@ -13,6 +15,8 @@ radius = 0.3
 script = ExtResource("1_nqhyy")
 default_character = ExtResource("2_wn2dj")
 knight_character = ExtResource("3_x3wgy")
+gunner_character = ExtResource("4_x3wgy")
+walking_speed = 5.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -47,3 +51,6 @@ aim_distance = 10.0
 
 [node name="CharacterSlot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="HealthComponent" type="Node3D" parent="."]
+script = ExtResource("7_3smsa")
