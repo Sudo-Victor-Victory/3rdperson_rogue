@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=3 format=3 uid="uid://b0x2vy3pp7h17"]
+
+[ext_resource type="Script" uid="uid://b1tdh86x02tcu" path="res://Scripts/AttackData.gd" id="1_m0trv"]
+[ext_resource type="Resource" uid="uid://bclons122y6qm" path="res://Scripts/Attack3.tres" id="2_3kina"]
+
+[resource]
+script = ExtResource("1_m0trv")
+name = "Punch 2"
+animation_name = "HumanArmature|Run_swordAttack"
+next_attacks = Array[ExtResource("1_m0trv")]([ExtResource("2_3kina")])
+metadata/_custom_type_script = "uid://b1tdh86x02tcu"

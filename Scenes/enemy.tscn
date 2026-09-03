@@ -27,4 +27,4 @@ debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 
 [node name="CharacterSlot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.10797316)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1321072)

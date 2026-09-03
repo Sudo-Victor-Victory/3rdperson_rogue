@@ -2,6 +2,7 @@ extends State
 
 @export var walking_state : State
 @export var idle_state : State
+@export var movement_state : State
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,6 +25,8 @@ func exit() -> void:
 	
 	
 func process_input(event: InputEvent) -> State:
+	if Input.is_action_pressed("movement_key"):
+		return movement_state
 	var is_direction_vector = Input.get_vector("left", "right", "forward", "backward") != Vector2(0,0)
 	if Input.is_action_pressed("run") && is_direction_vector:
 		return self

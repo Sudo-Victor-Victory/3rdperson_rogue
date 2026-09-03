@@ -20,7 +20,6 @@ func process_input(event: InputEvent) -> State:
 
 
 func process_physics(delta: float) -> State:
-	print(parent.global_position.distance_to(parent.player.global_position))
 	if parent.global_position.distance_to(parent.player.global_position) < parent.ATTACK_RANGE:
 		return attack_state
 	if parent.global_position.distance_to(parent.player.global_position) < 10:

@@ -1,41 +1,31 @@
 extends State
 
-@export var idle_state : State
-@export var running_state : State
-@export var attack_state : State
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-	
-func enter() -> void:
-	super()
-	
-
+@export var idle_state: State
+@export var running_state: State
+@export var attack_state: State
 
 func process_physics(delta: float) -> State:
-	if parent.global_position.distance_to(parent.player.global_position) < parent.ATTACK_RANGE:
+
+	var dist = parent.global_position.distance_to(parent.player.global_position)
+
+	if dist < parent.ATTACK_RANGE:
 		return attack_state
-	if parent.global_position.distance_to(parent.player.global_position) < 10:
+
+	# RUN THRESHOLD (lower bound = 8)
+	if dist < 8:
 		return running_state
-	if parent.global_position.distance_to(parent.player.global_position) < 20:
-		var direction = self.transform.origin
-		# Moves the enemy to the player every frame
-		parent.navigation_agent_3d.set_target_position(parent.player.global_position)
-		
-		parent.movement_delta = parent.movement_speed * delta
-		var next_path_position  = parent.navigation_agent_3d.get_next_path_position()
-		var new_velocity  = parent.global_position.direction_to(next_path_position) * parent.movement_delta
-		parent.global_position = parent.global_position.move_toward(parent.global_position + new_velocity, parent.movement_delta)
-		parent.move_and_slide()
-	else:
+
+	# IDLE
+	if dist > 22:
 		return idle_state
-	
-	
+
+	# WALK movement
+	parent.navigation_agent_3d.set_target_position(parent.player.global_position)
+
+	var next_pos = parent.navigation_agent_3d.get_next_path_position()
+	var dir = parent.global_position.direction_to(next_pos)
+
+	parent.move_direction = dir.normalized()
+	parent.move_speed = parent.movement_speed * 0.6
+
 	return self
