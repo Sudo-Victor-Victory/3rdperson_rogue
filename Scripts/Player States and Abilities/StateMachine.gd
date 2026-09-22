@@ -50,8 +50,18 @@ func process_frame(delta: float) -> void:
 		if new_state:
 			change_state(new_state)
 
-func force_state(new_state: State):
+func force_state(new_state: State) -> void:
+	if new_state == null:
+		return
+
 	if current_state:
+		print(
+			"FORCED STATE:",
+			current_state.name,
+			" -> ",
+			new_state.name
+		)
+
 		current_state.exit()
 
 	current_state = new_state

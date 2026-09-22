@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://lbgygycvpgxc"]
+
+[ext_resource type="Script" path="res://Scripts/Solid_Slice.gd" id="1_v5bic"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_v5bic"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rypa0"]
+
+[node name="SolidSlice" type="RigidBody3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_v5bic")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_v5bic")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_rypa0")

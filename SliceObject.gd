@@ -78,11 +78,11 @@ func _on_body_entered(body):
 			push_direction = push_direction.normalized()
 
 		print("PUSH DIRECTION:", push_direction)
-
 		body.current_profile.apply_slice_hit(
 			push_direction,
 			damage,
-			push_force
+			push_force,
+			self
 		)
 
 
