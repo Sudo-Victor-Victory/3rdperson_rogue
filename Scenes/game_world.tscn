@@ -225,8 +225,13 @@ transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, -0.155
 collision_layer = 3
 collision_mask = 3
 
-[node name="monorail_trainEnd2" parent="." instance=ExtResource("13_784ae")]
+[node name="monorail_trainEnd2" parent="." groups=["walls"] instance=ExtResource("13_784ae")]
 transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 4.92954, 0.588445, 25.9449)
+collision_layer = 3
+collision_mask = 3
+
+[node name="monorail_trainEnd3" parent="." groups=["walls"] instance=ExtResource("13_784ae")]
+transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 4.92954, 0.588445, 14.44146)
 collision_layer = 3
 collision_mask = 3
 

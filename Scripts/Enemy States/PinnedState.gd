@@ -26,12 +26,21 @@ func enter() -> void:
 	print("ENEMY PINNED")
 
 
-func process_physics(_delta: float) -> State:
+func process_physics(delta: float) -> State:
 	parent.velocity = Vector3.ZERO
 
-	timer += _delta
+	timer += delta
 
 	if timer >= duration:
 		return exit_state
 
 	return self
+
+
+func exit() -> void:
+	super()
+
+	parent.movement_enabled = true
+
+	parent.velocity.x = 0.0
+	parent.velocity.z = 0.0

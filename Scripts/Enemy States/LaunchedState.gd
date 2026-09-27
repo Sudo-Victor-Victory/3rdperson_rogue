@@ -20,7 +20,9 @@ func setup(source: Node3D) -> void:
 
 func enter() -> void:
 	super()
+
 	print("I GOT LAUNCHED")
+
 	timer = 0.0
 	wall_hit = false
 
@@ -50,6 +52,15 @@ func process_physics(delta: float) -> State:
 	return self
 
 
+func exit() -> void:
+	super()
+
+	parent.movement_enabled = true
+
+	parent.velocity.x = 0.0
+	parent.velocity.z = 0.0
+
+
 func on_wall_collision() -> void:
 	if wall_hit:
 		return
@@ -60,7 +71,5 @@ func on_wall_collision() -> void:
 
 	parent.apply_damage(wall_damage)
 
-	# The launch source is what we're associating
-	# with this wall impact.
 	if launch_source:
 		parent.record_wall_impact(launch_source)
