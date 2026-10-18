@@ -57,12 +57,16 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= gravity * delta
 
 	if movement_enabled:
+		# Normal AI movement.
 		velocity.x = move_direction.x * move_speed
 		velocity.z = move_direction.z * move_speed
 	else:
-		velocity.x = velocity.x
-		velocity.z = velocity.z
+		# Stop retained horizontal movement.
+		# Temporary physics states can override this below.
+		velocity.x = 0.0
+		velocity.z = 0.0
 
+	# States such as Launched can override velocity here.
 	enemy_state_machine.process_physics(delta)
 
 	move_and_slide()
@@ -70,7 +74,6 @@ func _physics_process(delta: float) -> void:
 	check_wall_collision()
 
 	face_player(delta)
-
 
 # ---------------------------------------------------------
 # COLLISION HANDLING

@@ -10,13 +10,19 @@ var connected_parts: Array = []
 
 func enter() -> void:
 	if is_attacking:
-		return  # 🔥 prevents re-entry reset
+		return
 
 	super()
 
 	is_attacking = true
 	has_hit_player = false
+
 	parent.movement_enabled = false
+
+	# Stop any leftover movement immediately.
+	parent.velocity.x = 0.0
+	parent.velocity.z = 0.0
+
 	_connect_body_parts()
 
 
