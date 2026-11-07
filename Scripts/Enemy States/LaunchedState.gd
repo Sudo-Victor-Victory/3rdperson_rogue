@@ -20,7 +20,6 @@ func setup(source: Node3D) -> void:
 
 func enter() -> void:
 	super()
-
 	print("I GOT LAUNCHED")
 
 	timer = 0.0
